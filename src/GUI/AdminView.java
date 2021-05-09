@@ -27,9 +27,12 @@ import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -109,19 +112,19 @@ public class AdminView extends javax.swing.JFrame {
         
     }
     
-    public void sl(String rs)
+    public void sl() throws SQLException
     {
         model = (DefaultTableModel) tblCrew.getModel();
         a = model.getRowCount();
         System.out.println(a);
         for (int i=0;i<a;i++){
             b = (String) model.getValueAt(i, 0);
-            if(rs.equals(b))
-            {
-                sluong = (String) model.getValueAt(i, 5);
-                System.out.println(sluong);
-            }
+            String asd = crd.getid(b);
+            System.out.print(b);
+            System.out.print("  ");
+            System.out.println(asd);
         }
+        
         
     }
 
@@ -2546,7 +2549,11 @@ public class AdminView extends javax.swing.JFrame {
         ad.pack();
         ad.setLocationRelativeTo(null);
         ad.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-       
+        try {
+            sl();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        }
            
     }//GEN-LAST:event_btnAddcrewActionPerformed
 

@@ -24,6 +24,7 @@ public class CrewDAO {
     private  MySQLConnect mySQL = new MySQLConnect();
     String addcrew;
     int adcrew;
+    String sluong;
 
     public CrewDAO() {
         addcrew = this.addcrew;
@@ -75,14 +76,15 @@ public class CrewDAO {
             
             mySQL.executeUpdate(sql);
     }
-    public void getid(String id) throws SQLException
+    public String getid(String id) throws SQLException
     {
-        String sql = "SELECT * FROM crew ";
+        String sql = "SELECT * FROM crew where id_crew = '"+id+"' ";
             ResultSet rs = mySQL.executeQuery(sql);
             while(rs.next())
             {
-                String id_crew= rs.getString("id_crew");
-    }
+                sluong= rs.getString("shift");
+            }
+            return sluong;
     }
     public String addcrew() throws SQLException
     {
