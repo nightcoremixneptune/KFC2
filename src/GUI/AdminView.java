@@ -6,6 +6,7 @@
 package GUI;
 
 import BUS.CrewBUS;
+import DATA.CrewDAO;
 import DTO.Crew;
 import com.mysql.jdbc.PreparedStatement;
 import java.awt.BorderLayout;
@@ -47,6 +48,10 @@ import javax.swing.table.DefaultTableModel;
 public class AdminView extends javax.swing.JFrame {
     public CrewBUS crBUS = new CrewBUS();
     public DefaultTableModel model;
+    int a =0;
+    String b;
+    String sluong;
+    CrewDAO crd = new CrewDAO();
   
 
     /**
@@ -101,6 +106,23 @@ public class AdminView extends javax.swing.JFrame {
         }
         tblCrew.setModel(model);
         model.fireTableDataChanged();
+        
+    }
+    
+    public void sl(String rs)
+    {
+        model = (DefaultTableModel) tblCrew.getModel();
+        a = model.getRowCount();
+        System.out.println(a);
+        for (int i=0;i<a;i++){
+            b = (String) model.getValueAt(i, 0);
+            if(rs.equals(b))
+            {
+                sluong = (String) model.getValueAt(i, 5);
+                System.out.println(sluong);
+            }
+        }
+        
     }
 
     public void listCrew() // Chép ArrayList lên table
@@ -2524,6 +2546,7 @@ public class AdminView extends javax.swing.JFrame {
         ad.pack();
         ad.setLocationRelativeTo(null);
         ad.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       
            
     }//GEN-LAST:event_btnAddcrewActionPerformed
 

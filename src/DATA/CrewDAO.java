@@ -7,6 +7,7 @@ package DATA;
 
 import DTO.Crew;
 import ConnectMysql.MySQLConnect;
+import GUI.AdminView;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ public class CrewDAO {
     private  MySQLConnect mySQL = new MySQLConnect();
     String addcrew;
     int adcrew;
+
     public CrewDAO() {
         addcrew = this.addcrew;
     }
@@ -73,6 +75,15 @@ public class CrewDAO {
             
             mySQL.executeUpdate(sql);
     }
+    public void getid(String id) throws SQLException
+    {
+        String sql = "SELECT * FROM crew ";
+            ResultSet rs = mySQL.executeQuery(sql);
+            while(rs.next())
+            {
+                String id_crew= rs.getString("id_crew");
+    }
+    }
     public String addcrew() throws SQLException
     {
         String sql = "SELECT * FROM crew ";
@@ -90,6 +101,7 @@ public class CrewDAO {
         return addcrew;
         
     }
+    
     public String datetime()
     {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
