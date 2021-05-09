@@ -9,7 +9,9 @@ import DTO.Crew;
 import ConnectMysql.MySQLConnect;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +21,10 @@ import java.util.logging.Logger;
  */
 public class CrewDAO {
     private  MySQLConnect mySQL = new MySQLConnect();
+    String addcrew;
+    int adcrew;
     public CrewDAO() {
+        addcrew = this.addcrew;
     }
     public ArrayList<Crew> list()
     {
@@ -68,21 +73,44 @@ public class CrewDAO {
             
             mySQL.executeUpdate(sql);
     }
+    public String addcrew() throws SQLException
+    {
+        String sql = "SELECT * FROM crew ";
+            ResultSet rs = mySQL.executeQuery(sql);
+            int max = 0;
+            while(rs.next())
+            {
+                int idcrew = Integer.parseInt(rs.getString("id_crew"));
+                max = idcrew;
+                
+            }
+            int adcrew = max + 1;
+            addcrew = String.valueOf(adcrew);
+            rs.close();
+        return addcrew;
+        
+    }
+    public String datetime()
+    {
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        return timeStamp;
+    }
 
-    public void add(Crew cr) {
+    public void add(Crew cr){
+        
         MySQLConnect mySQL = new MySQLConnect();
-         String sql = "INSERT INTO crew VALUES (";
-                sql += "'"+cr.getId_crew()+"',";
-                sql += "'"+cr.getName_crew()+"',";
-                sql += "'"+cr.getPhone()+"',";
-                sql += "'"+cr.getSex()+"',";
-                sql += "'"+cr.getImg()+"',";              
-                sql += "'"+cr.getSalary()+"',";
-                sql += "'"+cr.getShift()+"',";
-                sql += "'"+cr.getPosition()+"',";
-                sql += "'1')";
-         System.out.println(sql);
-         mySQL.executeUpdate(sql);
+         String sqlad = "INSERT INTO crew (`id_crew`,`name_crew`, `phone`, `sex`, `img`, `salary`, `shift`, `position`, `status_crew`) VALUES (";
+                sqlad += "'"+cr.getId_crew()+"',";
+                sqlad += "'"+cr.getName_crew()+"',";
+                sqlad += "'"+cr.getPhone()+"',";
+                sqlad += "'"+cr.getSex()+"',";
+                sqlad += "'"+cr.getImg()+"',";              
+                sqlad += "'"+cr.getSalary()+"',";
+                sqlad += "'"+cr.getShift()+"',";
+                sqlad += "'"+cr.getPosition()+"',";
+                sqlad += "'1')";
+         System.out.println(sqlad);
+         mySQL.executeUpdate(sqlad);
     }
     
     public void delete(String getId_crew)

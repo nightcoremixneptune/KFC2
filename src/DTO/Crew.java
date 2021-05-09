@@ -22,6 +22,8 @@ public class Crew {
         this.status_crew = status_crew;
 
     }
+    
+   
 
     public String getId_crew() {
         return id_crew;

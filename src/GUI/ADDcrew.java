@@ -5,9 +5,13 @@
  */
 package GUI;
 
+import DATA.CrewDAO;
 import DTO.Crew;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -233,30 +237,35 @@ public class ADDcrew extends javax.swing.JFrame {
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
             
-    //    if(txtId_crew.getText().equals("") || txtName_crew.getText().equals("") || cmSex.getSelectedItem().equals("Chọn") ){
-    //        JOptionPane.showMessageDialog(this, "Bạn Hãy Điền Đầy Đủ Thông Tin");
-    //    }
-    //    else {
-            String id = txtId_crew.getText();
+        try {
+            //    if(txtId_crew.getText().equals("") || txtName_crew.getText().equals("") || cmSex.getSelectedItem().equals("Chọn") ){
+            //        JOptionPane.showMessageDialog(this, "Bạn Hãy Điền Đầy Đủ Thông Tin");
+            //    }
+            //    else {
+            CrewDAO a = new CrewDAO();
+            String id = a.addcrew();
             String name_crew = txtName_crew.getText();
             String sex = cmSex.getSelectedItem().toString();
             String position = cmPosition.getSelectedItem().toString();
             String phone = txtPhone.getText();
             int salary = Integer.parseInt(txtSalary.getText());
             String shift = cmShift.getSelectedItem().toString();
-            String img = jtbImg.getText();
+            String img = a.datetime();
             Crew cr = new Crew(id, name_crew, phone, sex, img, salary, shift,position, 1);
             if(ad.crBUS.check(id))
-                        {
-                            JOptionPane.showMessageDialog(null, "Mã nhân viên đă tồn tại !!!");
-                            return;
-                        }
-            else 
             {
-            ad.crBUS.addCREW(cr);
-            
+                JOptionPane.showMessageDialog(null, "Mã nhân viên đă tồn tại !!!");
+                return;
             }
-        //}
+            else
+            {
+                ad.crBUS.addCREW(cr);
+                
+            }
+            //}
+        } catch (SQLException ex) {
+            Logger.getLogger(ADDcrew.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnOKActionPerformed
 
     /**

@@ -5,10 +5,3 @@
  */
 package GUI;
 
-/**
- *
- * @author DELL XPS 15
- */
-public class hello {
-    cc
-}
