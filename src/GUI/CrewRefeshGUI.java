@@ -50,9 +50,9 @@ public class CrewRefeshGUI extends javax.swing.JFrame {
     public DefaultTableModel model;
     public CrewRefeshGUI() {
         initComponents();
-        listCrewdelete();
+        Chepdulieuxoa();
     }
-    public void listCrewdelete() // Chép ArrayList lên table
+    public void Chepdulieuxoa() // Chép ArrayList lên table
     {
        
         if(ad.crBUS.getList()== null)ad.crBUS.listCrew();

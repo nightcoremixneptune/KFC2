@@ -86,29 +86,6 @@ public class CrewDAO {
             }
             return sluong;
     }
-    public String addcrew() throws SQLException
-    {
-        String sql = "SELECT * FROM crew ";
-            ResultSet rs = mySQL.executeQuery(sql);
-            int max = 0;
-            while(rs.next())
-            {
-                int idcrew = Integer.parseInt(rs.getString("id_crew"));
-                max = idcrew;
-                
-            }
-            int adcrew = max + 1;
-            addcrew = String.valueOf(adcrew);
-            rs.close();
-        return addcrew;
-        
-    }
-    
-    public String datetime()
-    {
-        String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-        return timeStamp;
-    }
 
     public void add(Crew cr){
         

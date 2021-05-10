@@ -15,6 +15,9 @@ import java.util.ArrayList;
  */
 public class CrewBUS {
     public ArrayList<Crew> Crewl ;
+    public String max; 
+    public int max2;
+    public String max3;
     public CrewBUS(int i)
     {
         listCrew();
@@ -47,6 +50,17 @@ public class CrewBUS {
         CrewDAO crewDAO = new CrewDAO();
         crewDAO.add(a);
     }
+    public String addid()
+    {
+        for(Crew cr : Crewl)
+        {
+            max = cr.getId_crew();
+        }
+        max2 = 1 + Integer.parseInt(max);
+        max3 = String.valueOf(max2);
+        return max3;
+    }
+    
 
     public void deleteCREW(String id_crew)
     {

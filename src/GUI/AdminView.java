@@ -75,7 +75,7 @@ public class AdminView extends javax.swing.JFrame {
                 ((JButton) component).setUI(new BasicButtonUI());
             }
         }
-        listCrew();
+        Chepdulieu();
        
       
         
@@ -128,7 +128,7 @@ public class AdminView extends javax.swing.JFrame {
         
     }
 
-    public void listCrew() // Chép ArrayList lên table
+    public void Chepdulieu() // Chép ArrayList lên table
     {
        
         if(crBUS.getList()== null)crBUS.listCrew();
@@ -136,7 +136,7 @@ public class AdminView extends javax.swing.JFrame {
 //        model.setRowCount(0);
         outModel(model,nv,1);
     }
-    public void listCrewdelete() // Chép ArrayList lên table
+    public void Chepdulieuxoa() // Chép ArrayList lên table
     {
        
         if(crBUS.getList()== null)crBUS.listCrew();
@@ -2636,7 +2636,7 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
        
         
-        listCrew();
+        Chepdulieu();
         
         
         
