@@ -98,19 +98,15 @@ public class CrewBUS {
         }
         return false;
     }
-    public ArrayList<Crew> search(String id_crew,String name_crew,String phone,String sex)
+    public ArrayList<Crew> search(String id_crew)
     {
         ArrayList<Crew> search = new ArrayList<>();
         id_crew = id_crew.isEmpty()?id_crew = "": id_crew;
-        name_crew = name_crew.isEmpty()?name_crew = "": name_crew;
-        phone = phone.isEmpty()?phone = "": phone;
-        sex = sex.isEmpty()?sex = "": sex;
+        
         for(Crew cr : Crewl)
         {
-            if( cr.getId_crew().contains(id_crew) && 
-                cr.getName_crew().contains(name_crew) &&
-                cr.getPhone().contains(phone) &&
-                cr.getSex().contains(sex))
+            if( cr.getId_crew().contains(id_crew)) 
+                
             {
                 search.add(cr);
             }
