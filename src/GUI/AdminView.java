@@ -5,8 +5,12 @@
  */
 package GUI;
 
+import BUS.BillBUS;
+import BUS.Bill_DetailBUS;
 import BUS.CrewBUS;
 import DATA.CrewDAO;
+import DTO.Bill;
+import DTO.Bill_Detail;
 import DTO.Crew;
 import com.mysql.jdbc.PreparedStatement;
 import java.awt.BorderLayout;
@@ -34,7 +38,9 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -50,7 +56,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdminView extends javax.swing.JFrame {
     public CrewBUS crBUS = new CrewBUS();
+    public BillBUS billBus = new BillBUS();
+    public Bill_DetailBUS bill_detailBus = new Bill_DetailBUS();
     public DefaultTableModel model;
+    public DefaultComboBoxModel boxdate;
+    public DefaultComboBoxModel boxdate1;
+    public DefaultComboBoxModel boxdate2;
+    public DefaultComboBoxModel boxmounth;
+    public DefaultComboBoxModel boxyear;
     int a =0;
     String b;
     String sluong;
@@ -76,6 +89,9 @@ public class AdminView extends javax.swing.JFrame {
             }
         }
         Chepdulieu();
+        Chepdulieudate();
+        ChepdulieuSales();
+      
        
       
         
@@ -84,6 +100,44 @@ public class AdminView extends javax.swing.JFrame {
     public void changeMainInfo(){
       
     }
+    
+    public String getDate(JComboBox model){
+        String date_get = model.getSelectedItem().toString();
+        String date1_get = date_get.substring(date_get.lastIndexOf("-") + 1);
+        return date1_get;
+    }
+    public String getDate_data(String data){
+        String date_data_get = data;
+        String date_data = date_data_get.substring(date_data_get.lastIndexOf("-") + 1);
+        return date_data;
+    }
+    
+    public String getMounth(JComboBox model){
+        String date_get = model.getSelectedItem().toString();
+        String mounth1_get = date_get.substring(date_get.indexOf("-") + 1 , date_get.lastIndexOf("-"));
+  
+        return mounth1_get;
+    }
+    
+    public String getMounth_data(String data){
+        String date_data_get = data;
+        String mounth_data = date_data_get.substring(date_data_get.indexOf("-") + 1 , date_data_get.lastIndexOf("-"));
+        return mounth_data;
+    }
+    
+    public String getYear(JComboBox model){
+        String date_get = model.getSelectedItem().toString();
+        String year1_get = date_get.substring(0, date_get.indexOf("-"));
+        
+        return year1_get;
+    }
+    
+    public String getYear_data(String data){
+        String date_data_get = data;
+        String year_data = date_data_get.substring(0, date_data_get.indexOf("-"));
+        return year_data;
+    }
+    
     
     
     public void outModel(DefaultTableModel model , ArrayList<Crew> cr, int a) // Xuất ra Table từ ArrayList
@@ -111,7 +165,312 @@ public class AdminView extends javax.swing.JFrame {
         model.fireTableDataChanged();
         
     }
-    
+    //lay ngay
+    public void date(ArrayList<Bill> bill)
+    {
+         boxdate = new DefaultComboBoxModel();
+         boxdate1 = new DefaultComboBoxModel();
+         boxmounth = new DefaultComboBoxModel();
+         boxyear = new DefaultComboBoxModel();
+         String date = "";
+         for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String date_data = b.getId_combo();
+            if(!date.equals(date_data))    
+            boxdate.addElement(date_data);
+            date = date_data;
+        }
+         jcomboDate.setModel(boxdate);
+         
+         String date1 = "";
+         for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String date_data = b.getId_combo();
+            if(!date1.equals(date_data))    
+            boxdate1.addElement(date_data);
+            date1 = date_data;
+        }
+         jComboDate1.setModel(boxdate1);
+         
+         String mounth = "";
+         for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String mounth_data_get = b.getId_combo();
+            String mounth_data = mounth_data_get.substring(0, mounth_data_get.indexOf("-") + 3);
+            if(!mounth.equals(mounth_data))    
+            boxmounth.addElement(mounth_data);
+            mounth = mounth_data;
+        }
+        jComboMounth.setModel(boxmounth);
+        String year = "";
+         for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String year_data_get = b.getId_combo();
+            String year_data = getYear_data(b.getId_combo());
+            if(!year.equals(year_data))    
+            boxyear.addElement(year_data);
+            year = year_data;
+        }
+        jComboYear.setModel(boxyear);
+        JComboYearQui.setModel(boxyear);
+        
+        
+    }
+    public void date2(ArrayList<Bill> bill){
+        boxdate2 = new DefaultComboBoxModel();
+        String date2 = "";
+         for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String date_data_get = b.getId_combo();
+            String year_data = getYear_data(b.getId_combo());
+            String date_data = getDate_data(b.getId_combo());
+            String mounth_data = getMounth_data(b.getId_combo());
+            int a1 = Integer.parseInt(date_data);
+            int b1 = Integer.parseInt(mounth_data);
+            int c1 = Integer.parseInt(year_data);
+            //lay ngay tren ngay 1
+            String year1_get = getYear(jComboDate1);
+            String date1_get = getDate(jComboDate1);
+            String mounth1_get = getMounth(jComboDate1);
+            int a2 = Integer.parseInt(date1_get);
+            int b2 = Integer.parseInt(mounth1_get);
+            int c2 = Integer.parseInt(year1_get);
+            if(c1 > c2)
+            {
+                if(!date2.equals(date_data_get))    
+                boxdate2.addElement(date_data_get);
+                date2 = date_data_get;
+                
+            }
+            else if(b1 > b2)
+            {
+                if(!date2.equals(date_data_get))    
+                boxdate2.addElement(date_data_get);
+                date2 = date_data_get;     
+            }
+            else if(b1 == b2)
+            {
+                if(a1 > a2)
+                {
+                    if(!date2.equals(date_data_get))    
+                    boxdate2.addElement(date_data_get);
+                    date2 = date_data_get;
+                }
+            }
+            
+        }
+         jComboDate2.setModel(boxdate2);
+         
+         
+    }
+    //tinh tong tien
+    public void tongtien(ArrayList<Bill> bill){
+        //lay ngay tren combox ngay
+        int tien = 0;
+        for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String date_data_get = b.getId_combo();
+            String year_data = getYear_data(b.getId_combo());
+            String date_data = getDate_data(b.getId_combo());
+            String mounth_data = getMounth_data(b.getId_combo());
+            //kiem tra ngay trong database == ngay trong comboxngay
+            String year1_get = getYear(jcomboDate);
+            String date1_get = getDate(jcomboDate);
+            String mounth1_get = getMounth(jcomboDate);    //
+            if(date1_get.equals(date_data) && mounth1_get.equals(mounth_data) && year1_get.equals(year_data))
+            {
+            tien = tien + b.getSum();
+            }
+        }
+        String tongtien = String.valueOf(tien);
+        JTongTienNgay.setText(tongtien+"đ");
+        //tien thang
+        String mounth = jComboMounth.getSelectedItem().toString();
+        int tien_mounth = 0;
+        for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String mounth_data_get = b.getId_combo();
+            String mounth_data = mounth_data_get.substring(0, mounth_data_get.indexOf("-") + 3);
+            //kiem tra ngay trong database == ngay trong comboxngay
+            if(mounth.equals(mounth_data))
+            {
+            tien_mounth = tien_mounth + b.getSum();
+            }
+        }
+        String tongtien_mounth = String.valueOf(tien_mounth);
+        JTongTienThang.setText(tongtien_mounth+"đ");
+        //tien theo nam
+        String year = jComboYear.getSelectedItem().toString();
+        String year_get = JComboYearQui.getSelectedItem().toString();
+        int tien_year = 0;
+        int tien_qui = 0;
+        for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String year_data_get = b.getId_combo();
+            String year_data = getYear_data(b.getId_combo());
+            String mounth_data = getMounth_data(b.getId_combo());
+            int b1 = Integer.parseInt(mounth_data);
+            //kiem tra ngay trong database == ngay trong comboxngay
+            if(year.equals(year_data))
+            {
+            tien_year = tien_year + b.getSum();
+            }
+            //tinh tong tien dua tren quý
+            if(year_get.equals(year_data))
+            {
+                if(b1 < 4  && jComboQui.getSelectedItem().equals("1"))
+                    tien_qui = tien_qui + b.getSum();
+                if(b1 > 3 && b1 < 7   && jComboQui.getSelectedItem().equals("2"))
+                    tien_qui = tien_qui + b.getSum();
+                if(b1 > 6 && b1 < 10   && jComboQui.getSelectedItem().equals("3"))
+                    tien_qui = tien_qui + b.getSum();
+                if(b1 > 9   && jComboQui.getSelectedItem().equals("4"))
+                    tien_qui = tien_qui + b.getSum();
+            }
+        }
+        JTongTienQui.setText(tien_qui+"đ");
+        String tongtien_year = String.valueOf(tien_year);
+        JTongTienNam.setText(tongtien_year+"đ");
+        
+        //tong tien theo khoang ngay 
+        int tongtien_khoangngay = 0;
+         for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String date_data_get = b.getId_combo();
+            String date_data = getDate_data(b.getId_combo());
+            String mounth_data = getMounth_data(b.getId_combo());
+            int a1 = Integer.parseInt(date_data);
+            int b1 = Integer.parseInt(mounth_data);
+            //lay ngay tren ngay 1
+            String date1_get = getDate(jComboDate1);
+            String mounth1_get = getMounth(jComboDate1);
+            int a2 = Integer.parseInt(date1_get);
+            int b2 = Integer.parseInt(mounth1_get);
+            //lay ngay tren ngay 2
+            String date1_2_get = getDate(jComboDate2);
+            String mounth2_get = getMounth(jComboDate2);
+            int a3 = Integer.parseInt(date1_2_get);
+            int b3 = Integer.parseInt(mounth2_get);
+            if(b1 == b2 && b1 == b3)
+            {
+                if(a1 >= a2 && a1 <= a3)
+                {
+                    tongtien_khoangngay = tongtien_khoangngay + b.getSum();
+                }    
+            }
+            else if(b1 >= b2 && b1 < b3)
+            {
+                if(a1 >= a2)
+                tongtien_khoangngay = tongtien_khoangngay + b.getSum();
+            }
+            else if(b1 > b2 && b1 <= b3)
+            {
+                if(a1 <= a3)
+                tongtien_khoangngay = tongtien_khoangngay + b.getSum();
+            }
+            JTongTienKhoangNgay.setText(tongtien_khoangngay +"đ");
+            
+        }
+    }
+    public void MonSale(ArrayList<Bill> bill,ArrayList<Bill_Detail> bill_Detail)
+    {
+        //lay ngay de so sanh
+        String dateget = jcomboDate.getSelectedItem().toString();
+        String date = dateget.substring(dateget.lastIndexOf("-") + 1); 
+        int id_mon = 0;
+        int count = 0;
+        for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String date_data_get = b.getId_combo();
+            String year_data = getYear_data(b.getId_combo());
+            String date_data = getDate_data(b.getId_combo());
+            String mounth_data = getMounth_data(b.getId_combo());
+            //kiem tra ngay trong database == ngay trong comboxngay
+            String year1_get = getYear(jcomboDate);
+            String date1_get = getDate(jcomboDate);
+            String mounth1_get = getMounth(jcomboDate);    //
+            if(date1_get.equals(date_data) && mounth1_get.equals(mounth_data) && year1_get.equals(year_data))
+            {
+               for(Bill_Detail bdetail: bill_Detail)
+               {
+                   //lay id cua hoadon va chitiethoa don so sanh
+                   if(b.getId_bill().equals(bdetail.getId_bill()))
+                   {
+                       //lay id mon an
+                       int slmon = bdetail.getQuantity_combo();
+                       if(id_mon != slmon)
+                       count++;
+                       id_mon = slmon;
+                   }
+               }
+            }
+        }
+        JTongMonNgay.setText(String.valueOf(count)+" Món");
+        
+        String mounth = jComboMounth.getSelectedItem().toString();   
+        int count_mounth = 0;
+        int id_mon_thang = 0;
+        for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String mounth_data_get = b.getId_combo();
+            String mounth_data = mounth_data_get.substring(0, mounth_data_get.indexOf("-") + 3);
+            //so sanh ngay trong database va comboxngay
+            if(mounth.equals(mounth_data))
+            {
+               for(Bill_Detail bdetail: bill_Detail)
+               {
+                   //lay id cua hoadon va chitiethoa don so sanh
+                   if(b.getId_bill().equals(bdetail.getId_bill()))
+                   {
+                       //lay id mon an
+                       int slmon = bdetail.getQuantity_combo();
+                       if(id_mon_thang != slmon)
+                       count_mounth++;
+                       id_mon_thang = slmon;
+                   }
+               }
+            }
+        }
+        jTongMonThang.setText(String.valueOf(count_mounth)+" Món");
+        
+        String year = jComboYear.getSelectedItem().toString();   
+        int count_year = 0;
+        int id_mon_nam = 0;
+        for(Bill b: bill)
+        {
+            //lay ngay trong database
+            String year_data_get = b.getId_combo();
+            String year_data = getYear_data(b.getId_combo());
+            //so sanh ngay trong database va comboxngay
+            if(year.equals(year_data))
+            {
+               for(Bill_Detail bdetail: bill_Detail)
+               {
+                   //lay id cua hoadon va chitiethoa don so sanh
+                   if(b.getId_bill().equals(bdetail.getId_bill()))
+                   {
+                       //lay id mon an
+                       int slmon = bdetail.getQuantity_combo();
+                       if(id_mon_nam != slmon)
+                       count_year++;
+                       id_mon_nam = slmon;
+                   }
+               }
+            }
+        }
+        jTongMonNam.setText(String.valueOf(count_year)+" Món");
+    }
     public void sl() throws SQLException
     {
         model = (DefaultTableModel) tblCrew.getModel();
@@ -136,6 +495,26 @@ public class AdminView extends javax.swing.JFrame {
 //        model.setRowCount(0);
         outModel(model,nv,1);
     }
+    public void Chepdulieudate(){
+        if(billBus.getList()== null)billBus.listBill();
+        ArrayList<Bill> bill = billBus.getList();
+        date(bill);    
+        date2(bill);
+    }
+    public void ChepdulieuSales(){
+        if(billBus.getList()== null)billBus.listBill();
+        ArrayList<Bill> bill = billBus.getList();
+        if(bill_detailBus.getList()== null)bill_detailBus.listBill_Detail();
+        ArrayList<Bill_Detail> bildetail = bill_detailBus.getList();
+        tongtien(bill);
+        MonSale(bill, bildetail);
+    }
+    public void chepdulieudate2(){
+        if(billBus.getList()== null)billBus.listBill();
+        ArrayList<Bill> bill = billBus.getList();
+        date2(bill);    
+    }
+
     public void Chepdulieuxoa() // Chép ArrayList lên table
     {
        
@@ -165,6 +544,7 @@ public class AdminView extends javax.swing.JFrame {
         btnSale = new javax.swing.JButton();
         btnCustomer = new javax.swing.JButton();
         btnSupplier = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
         pnlCards = new javax.swing.JPanel();
         pnlCrewCard = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -260,33 +640,44 @@ public class AdminView extends javax.swing.JFrame {
         jPanel18 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        JTongMonNgay = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        jTongMonNam = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboDate1 = new javax.swing.JComboBox<>();
         jLabel52 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboQui = new javax.swing.JComboBox<>();
+        jcomboDate = new javax.swing.JComboBox<>();
         jLabel65 = new javax.swing.JLabel();
         jLabel66 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        jComboDate2 = new javax.swing.JComboBox<>();
         jLabel67 = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        jComboMounth = new javax.swing.JComboBox<>();
+        jComboYear = new javax.swing.JComboBox<>();
         jLabel69 = new javax.swing.JLabel();
-        jComboBox7 = new javax.swing.JComboBox<>();
+        jComboCrew = new javax.swing.JComboBox<>();
+        JTongTienNgay = new javax.swing.JLabel();
+        JTongTienThang = new javax.swing.JLabel();
+        jTongMonThang = new javax.swing.JLabel();
+        JTongTienNam = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        JComboYearQui = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
+        JTongTienKhoangNgay = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        JTongTienNhanVien = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        JTongTienQui = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
         jLabel54 = new javax.swing.JLabel();
         jButton15 = new javax.swing.JButton();
@@ -514,13 +905,18 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
+        jTextField2.setText("jTextField2");
+
         javax.swing.GroupLayout MenuAdminViewLayout = new javax.swing.GroupLayout(MenuAdminView);
         MenuAdminView.setLayout(MenuAdminViewLayout);
         MenuAdminViewLayout.setHorizontalGroup(
             MenuAdminViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuAdminViewLayout.createSequentialGroup()
                 .addGroup(MenuAdminViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCrew, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(MenuAdminViewLayout.createSequentialGroup()
+                        .addComponent(btnCrew, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnStatistic, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFood, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -533,7 +929,9 @@ public class AdminView extends javax.swing.JFrame {
             MenuAdminViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MenuAdminViewLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnCrew, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MenuAdminViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCrew, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnStatistic, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -546,7 +944,7 @@ public class AdminView extends javax.swing.JFrame {
                 .addComponent(btnSale, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(251, Short.MAX_VALUE))
         );
 
         jSplitPane2.setLeftComponent(MenuAdminView);
@@ -673,7 +1071,7 @@ public class AdminView extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1015, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(28, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnRefeshCrew1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -713,11 +1111,12 @@ public class AdminView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddcrew1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditcrew1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRefeshCrew1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeletecrew1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAddcrew1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditcrew1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDeletecrew1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -778,6 +1177,12 @@ public class AdminView extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Tên Nhân Viên");
+
+        txtName_crew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtName_crewActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Số Điện Thoại");
@@ -992,7 +1397,7 @@ public class AdminView extends javax.swing.JFrame {
         );
         pnlCrewCardLayout.setVerticalGroup(
             pnlCrewCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
         );
 
         pnlCards.add(pnlCrewCard, "pnlCard1");
@@ -1257,16 +1662,13 @@ public class AdminView extends javax.swing.JFrame {
         jLabel28.setText("Doanh Số Bán Theo Ngày");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel13.setText("Đã Bán Được");
+        jLabel13.setText("Đã Bán Được:");
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel16.setText("...");
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel19.setText("Món");
+        JTongMonNgay.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        JTongMonNgay.setText("...");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel23.setText("Tổng Tiền Thu Được");
+        jLabel23.setText("Tổng Tiền Thu Được:");
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel31.setText("Từ Ngày");
@@ -1276,41 +1678,57 @@ public class AdminView extends javax.swing.JFrame {
         jLabel29.setText("Doanh Số Bán Theo Tháng");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel14.setText("Đã Bán Được");
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel17.setText("...");
+        jLabel14.setText("Đã Bán Được:");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel24.setText("Tổng Tiền Thu Được");
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel20.setText("Món");
+        jLabel24.setText("Tổng Tiền Thu Được:");
 
         jLabel30.setBackground(new java.awt.Color(0, 0, 0));
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel30.setText("Doanh Số Bán Theo Năm");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel15.setText("Đã Bán Được");
+        jLabel15.setText("Đã Bán Được:");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel18.setText("...");
-
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel21.setText("Món");
+        jTongMonNam.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTongMonNam.setText("...");
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel32.setText("Tổng Tiền Thu Được");
+        jLabel32.setText("Tổng Tiền Thu Được:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboDate1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboDate1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboDate1ItemStateChanged(evt);
+            }
+        });
 
         jLabel52.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel52.setText("Đến Ngày");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quý 1", "Quý 2", "Quý 3", "Quý 4" }));
+        jComboQui.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        jComboQui.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboQuiItemStateChanged(evt);
+            }
+        });
+        jComboQui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboQuiActionPerformed(evt);
+            }
+        });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcomboDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcomboDate.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcomboDateItemStateChanged(evt);
+            }
+        });
+        jcomboDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcomboDateActionPerformed(evt);
+            }
+        });
 
         jLabel65.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel65.setText("Chọn Tháng");
@@ -1318,98 +1736,205 @@ public class AdminView extends javax.swing.JFrame {
         jLabel66.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel66.setText("Quý");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboDate2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboDate2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboDate2ItemStateChanged(evt);
+            }
+        });
+        jComboDate2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboDate2ActionPerformed(evt);
+            }
+        });
 
         jLabel67.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel67.setText("Chọn Ngày");
+        jLabel67.setText("Chọn Năm");
 
         jLabel68.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel68.setText("Chọn Ngày");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboMounth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboMounth.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboMounthItemStateChanged(evt);
+            }
+        });
+        jComboMounth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboMounthActionPerformed(evt);
+            }
+        });
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboYear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboYearActionPerformed(evt);
+            }
+        });
 
         jLabel69.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel69.setText("Chọn Nhân Viên");
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboCrew.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        JTongTienNgay.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        JTongTienNgay.setText("....");
+
+        JTongTienThang.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        JTongTienThang.setText("......");
+
+        jTongMonThang.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTongMonThang.setText(".......");
+
+        JTongTienNam.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        JTongTienNam.setText(".....");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(153, 153, 0));
+        jLabel8.setText("Thống kê trong khoảng ngày ");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(153, 153, 0));
+        jLabel16.setText("Thống kê Theo nhân viên");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(153, 153, 0));
+        jLabel17.setText("Thống kê Theo Quí");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel18.setText("chọn năm:");
+
+        JComboYearQui.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JComboYearQui.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                JComboYearQuiItemStateChanged(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel19.setText("Tổng Tiền thu được:");
+
+        JTongTienKhoangNgay.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        JTongTienKhoangNgay.setText(".....");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel21.setText("Tổng tiền thu được:");
+
+        JTongTienNhanVien.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        JTongTienNhanVien.setText("......");
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel26.setText("Tổng tiền thu được:");
+
+        JTongTienQui.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        JTongTienQui.setText("......");
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel28)
+                        .addGap(240, 240, 240))
                     .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addContainerGap(15, Short.MAX_VALUE)
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel28)
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(JTongTienNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcomboDate, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addComponent(jLabel31)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel18Layout.createSequentialGroup()
                                 .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel19))
-                            .addComponent(jLabel23)
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(199, 199, 199))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel31)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel52)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel21))
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addComponent(jLabel66)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(2, 2, 2)
+                                .addComponent(JTongMonNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel8)
+                            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel18Layout.createSequentialGroup()
+                                    .addComponent(jLabel19)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(JTongTienKhoangNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel18Layout.createSequentialGroup()
+                                    .addComponent(jLabel52)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jComboDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel29)
                             .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel18Layout.createSequentialGroup()
+                                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel29)
+                                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTongMonThang, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(169, 169, 169))
+                                    .addGroup(jPanel18Layout.createSequentialGroup()
+                                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(175, 175, 175)))
+                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel30)
+                                    .addGroup(jPanel18Layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                                .addComponent(jLabel15)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTongMonNam, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                                .addComponent(jLabel32)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(JTongTienNam, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                                .addComponent(jLabel18)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(JComboYearQui, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                                .addComponent(jLabel66, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jComboQui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(JTongTienQui, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel20))
-                            .addComponent(jLabel24)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                                .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboMounth, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(193, 193, 193)
+                                .addComponent(jLabel67)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboYear, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addComponent(jLabel24)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(JTongTienThang, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addGap(138, 138, 138)
-                                .addComponent(jLabel30))
+                                .addComponent(jLabel69)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboCrew, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addGap(125, 125, 125)
-                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel32)))))
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                                .addComponent(jLabel21)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(JTongTienNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1419,47 +1944,81 @@ public class AdminView extends javax.swing.JFrame {
                     .addComponent(jLabel28)
                     .addComponent(jLabel29)
                     .addComponent(jLabel30))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel32))
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel68)
+                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jcomboDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel65)
+                        .addComponent(jComboMounth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel67)
+                        .addComponent(jComboYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel24)
+                        .addComponent(JTongTienThang))
+                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel23)
+                        .addComponent(JTongTienNgay))
+                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel32)
+                        .addComponent(JTongTienNam)))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(jTongMonNam))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel17)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel65, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel18)
+                            .addComponent(JComboYearQui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel31)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel52)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel66)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                            .addComponent(jLabel66)
+                            .addComponent(jComboQui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel13)
+                                .addComponent(JTongMonNgay))
+                            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel14)
+                                .addComponent(jTongMonThang)))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel16))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel31)
+                            .addComponent(jComboDate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel69)
+                            .addComponent(jComboCrew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel52)
+                            .addComponent(jComboDate2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(JTongTienKhoangNgay)))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21)
+                            .addComponent(JTongTienNhanVien)))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel26)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JTongTienQui)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jLabel53.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1504,7 +2063,7 @@ public class AdminView extends javax.swing.JFrame {
                                 .addComponent(jLabel54)))
                         .addGap(78, 78, 78))))
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 959, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1532,7 +2091,7 @@ public class AdminView extends javax.swing.JFrame {
                     .addComponent(jLabel39)
                     .addComponent(jLabel53)
                     .addComponent(jLabel54))
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Chi Tiết Giao Dịch", jPanel10);
@@ -1639,7 +2198,7 @@ public class AdminView extends javax.swing.JFrame {
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel62)
                     .addComponent(jLabel63)
@@ -1763,7 +2322,7 @@ public class AdminView extends javax.swing.JFrame {
                 .addGroup(pnlDishCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDishCardLayout.createSequentialGroup()
-                        .addGap(0, 798, Short.MAX_VALUE)
+                        .addGap(0, 768, Short.MAX_VALUE)
                         .addComponent(btnNewCrew3, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDishCardLayout.createSequentialGroup()
@@ -2089,7 +2648,7 @@ public class AdminView extends javax.swing.JFrame {
         pnlStorageCard.setLayout(pnlStorageCardLayout);
         pnlStorageCardLayout.setHorizontalGroup(
             pnlStorageCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1058, Short.MAX_VALUE)
+            .addGap(0, 1048, Short.MAX_VALUE)
             .addGroup(pnlStorageCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlStorageCardLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -2216,7 +2775,7 @@ public class AdminView extends javax.swing.JFrame {
                         .addComponent(jTextField34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(198, 198, 198))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSupplierCardLayout.createSequentialGroup()
-                        .addGap(0, 202, Short.MAX_VALUE)
+                        .addGap(0, 172, Short.MAX_VALUE)
                         .addComponent(btnRefeshCrew6, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDeletecrew6, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2372,7 +2931,7 @@ public class AdminView extends javax.swing.JFrame {
                         .addGap(31, 31, 31))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSaleCardLayout.createSequentialGroup()
                         .addComponent(jTextField38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                         .addComponent(jTextField37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(193, 193, 193)
                         .addComponent(jTextField36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2389,7 +2948,6 @@ public class AdminView extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addGroup(pnlSaleCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlSaleCardLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlSaleCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2472,7 +3030,7 @@ public class AdminView extends javax.swing.JFrame {
                 .addComponent(jTextField40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(193, 193, 193)
                 .addComponent(jTextField41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
                 .addComponent(jTextField42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(183, 183, 183))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMemberCardLayout.createSequentialGroup()
@@ -2865,6 +3423,62 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchId_crewActionPerformed
 
+    private void txtName_crewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtName_crewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtName_crewActionPerformed
+
+    private void jcomboDateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcomboDateItemStateChanged
+        // TODO add your handling code here:
+        ChepdulieuSales();
+    }//GEN-LAST:event_jcomboDateItemStateChanged
+
+    private void jcomboDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcomboDateActionPerformed
+
+    private void jComboQuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboQuiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboQuiActionPerformed
+
+    private void jComboYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboYearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboYearActionPerformed
+
+    private void jComboMounthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboMounthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboMounthActionPerformed
+
+    private void jComboMounthItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboMounthItemStateChanged
+        // TODO add your handling code here:
+        ChepdulieuSales();
+    }//GEN-LAST:event_jComboMounthItemStateChanged
+
+    private void jComboDate2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDate2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboDate2ActionPerformed
+
+    private void jComboDate1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboDate1ItemStateChanged
+        // TODO add your handling code here:
+        chepdulieudate2();
+        ChepdulieuSales();
+    }//GEN-LAST:event_jComboDate1ItemStateChanged
+
+    private void jComboDate2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboDate2ItemStateChanged
+        // TODO add your handling code here:
+        ChepdulieuSales();
+    }//GEN-LAST:event_jComboDate2ItemStateChanged
+
+    private void jComboQuiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboQuiItemStateChanged
+        // TODO add your handling code here:
+        ChepdulieuSales();
+    }//GEN-LAST:event_jComboQuiItemStateChanged
+
+    private void JComboYearQuiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JComboYearQuiItemStateChanged
+        // TODO add your handling code here:
+        ChepdulieuSales();
+    }//GEN-LAST:event_JComboYearQuiItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -2902,6 +3516,14 @@ public class AdminView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> JComboYearQui;
+    private javax.swing.JLabel JTongMonNgay;
+    private javax.swing.JLabel JTongTienKhoangNgay;
+    private javax.swing.JLabel JTongTienNam;
+    private javax.swing.JLabel JTongTienNgay;
+    private javax.swing.JLabel JTongTienNhanVien;
+    private javax.swing.JLabel JTongTienQui;
+    private javax.swing.JLabel JTongTienThang;
     private javax.swing.JPanel MenuAdminView;
     private javax.swing.JButton btnAddcrew;
     private javax.swing.JButton btnAddcrew1;
@@ -2960,13 +3582,12 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
+    private javax.swing.JComboBox<String> jComboCrew;
+    private javax.swing.JComboBox<String> jComboDate1;
+    private javax.swing.JComboBox<String> jComboDate2;
+    private javax.swing.JComboBox<String> jComboMounth;
+    private javax.swing.JComboBox<String> jComboQui;
+    private javax.swing.JComboBox<String> jComboYear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2979,11 +3600,11 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
@@ -3021,6 +3642,7 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -3073,6 +3695,7 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField19;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField22;
@@ -3109,6 +3732,9 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel jTongMonNam;
+    private javax.swing.JLabel jTongMonThang;
+    private javax.swing.JComboBox<String> jcomboDate;
     private javax.swing.JLabel lbShift;
     private javax.swing.JPanel pnlCards;
     private javax.swing.JPanel pnlCrewCard;
