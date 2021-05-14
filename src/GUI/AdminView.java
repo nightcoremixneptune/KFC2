@@ -37,6 +37,8 @@ import java.util.Calendar;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -91,9 +93,6 @@ public class AdminView extends javax.swing.JFrame {
         Chepdulieu();
         Chepdulieudate();
         ChepdulieuSales();
-      
-       
-      
         
     }
 
@@ -137,7 +136,6 @@ public class AdminView extends javax.swing.JFrame {
         String year_data = date_data_get.substring(0, date_data_get.indexOf("-"));
         return year_data;
     }
-    
     
     
     public void outModel(DefaultTableModel model , ArrayList<Crew> cr, int a) // Xuất ra Table từ ArrayList
