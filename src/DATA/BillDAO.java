@@ -26,16 +26,17 @@ public class BillDAO {
         ArrayList<Bill> dshd = new ArrayList<>();
         try {
            
-            String sql = "SELECT * FROM bill";
+            String sql = "SELECT * FROM hoadon";
             ResultSet rs = mySQL.executeQuery(sql);
             while(rs.next())
             {
-                String id_bill= rs.getString("id_bill");
-                String id_combo = rs.getString("id_combo");
-                String id_crew = rs.getString("id_crew");              
-                String id_sale = rs.getString("id_sale");
-                int sum = rs.getInt("sum");
-                Bill b = new Bill(id_bill, id_combo, id_crew, id_sale, sum);
+                String id_hoadon= rs.getString("id_hoadon");
+                String id_khach = rs.getString("id_khach");
+                String id_nhanvien = rs.getString("id_nhanvien");
+                String id_khuyenmai = rs.getString("id_khuyenmai");              
+                String ngaylap = rs.getString("ngaylap");
+                int tongtien = rs.getInt("tongtien");
+                Bill b = new Bill(id_hoadon, id_khach, id_nhanvien, id_khuyenmai, ngaylap, tongtien);
                 dshd.add(b);
             }
             rs.close();
@@ -50,12 +51,13 @@ public class BillDAO {
 
     public void set(Bill b) {
             MySQLConnect mySQL = new MySQLConnect();
-            String sql = "UPDATE bill SET ";
-            sql += "id_combo='"+b.getId_combo()+"', ";
-            sql += "id_crew='"+b.getId_crew()+"', ";
-            sql += "id_sale='"+b.getId_sale()+"', ";
-            sql += "sum='"+b.getSum()+"', ";
-            sql += " WHERE id_bill='"+b.getId_bill()+"'";
+            String sql = "UPDATE hoadon SET ";
+            sql += "id_khach='"+b.getId_khach()+"', ";
+            sql += "id_nhanvien='"+b.getId_nhanvien()+"', ";
+            sql += "id_khuyenmai='"+b.getId_khuyenmai()+"', ";
+            sql += "ngaylap='"+b.getNgaylap()+"', ";
+            sql += "tongtien='"+b.getTongtien()+"', ";
+            sql += " WHERE id_hoadon='"+b.getId_hoadon()+"'";
             System.out.println(sql);
             
             mySQL.executeUpdate(sql);
@@ -63,12 +65,13 @@ public class BillDAO {
 
     public void add(Bill b) {
         MySQLConnect mySQL = new MySQLConnect();
-         String sql = "INSERT INTO bill VALUES (";
-                sql += "'"+b.getId_bill()+"',";
-                sql += "'"+b.getId_combo()+"',";
-                sql += "'"+b.getId_crew()+"',";
-                sql += "'"+b.getId_sale()+"',";
-                sql += "'"+b.getSum()+")";
+         String sql = "INSERT INTO hoadon VALUES (";
+                sql += "'"+b.getId_hoadon()+"',";
+                sql += "'"+b.getId_khach()+"',";
+                sql += "'"+b.getId_nhanvien()+"',";
+                sql += "'"+b.getId_khuyenmai()+"',";
+                sql += "'"+b.getNgaylap()+"',";
+                sql += "'"+b.getTongtien()+")";
          System.out.println(sql);
          mySQL.executeUpdate(sql);
     }

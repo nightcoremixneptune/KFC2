@@ -174,7 +174,7 @@ public class AdminView extends javax.swing.JFrame {
          for(Bill b: bill)
         {
             //lay ngay trong database
-            String date_data = b.getId_combo();
+            String date_data = b.getNgaylap();
             if(!date.equals(date_data))    
             boxdate.addElement(date_data);
             date = date_data;
@@ -185,7 +185,7 @@ public class AdminView extends javax.swing.JFrame {
          for(Bill b: bill)
         {
             //lay ngay trong database
-            String date_data = b.getId_combo();
+            String date_data = b.getNgaylap();
             if(!date1.equals(date_data))    
             boxdate1.addElement(date_data);
             date1 = date_data;
@@ -196,7 +196,7 @@ public class AdminView extends javax.swing.JFrame {
          for(Bill b: bill)
         {
             //lay ngay trong database
-            String mounth_data_get = b.getId_combo();
+            String mounth_data_get = b.getNgaylap();
             String mounth_data = mounth_data_get.substring(0, mounth_data_get.indexOf("-") + 3);
             if(!mounth.equals(mounth_data))    
             boxmounth.addElement(mounth_data);
@@ -207,8 +207,8 @@ public class AdminView extends javax.swing.JFrame {
          for(Bill b: bill)
         {
             //lay ngay trong database
-            String year_data_get = b.getId_combo();
-            String year_data = getYear_data(b.getId_combo());
+            String year_data_get = b.getNgaylap();
+            String year_data = getYear_data(b.getNgaylap());
             if(!year.equals(year_data))    
             boxyear.addElement(year_data);
             year = year_data;
@@ -224,10 +224,10 @@ public class AdminView extends javax.swing.JFrame {
          for(Bill b: bill)
         {
             //lay ngay trong database
-            String date_data_get = b.getId_combo();
-            String year_data = getYear_data(b.getId_combo());
-            String date_data = getDate_data(b.getId_combo());
-            String mounth_data = getMounth_data(b.getId_combo());
+            String date_data_get = b.getNgaylap();
+            String year_data = getYear_data(b.getNgaylap());
+            String date_data = getDate_data(b.getNgaylap());
+            String mounth_data = getMounth_data(b.getNgaylap());
             int a1 = Integer.parseInt(date_data);
             int b1 = Integer.parseInt(mounth_data);
             int c1 = Integer.parseInt(year_data);
@@ -273,17 +273,17 @@ public class AdminView extends javax.swing.JFrame {
         for(Bill b: bill)
         {
             //lay ngay trong database
-            String date_data_get = b.getId_combo();
-            String year_data = getYear_data(b.getId_combo());
-            String date_data = getDate_data(b.getId_combo());
-            String mounth_data = getMounth_data(b.getId_combo());
+            String date_data_get = b.getNgaylap();
+            String year_data = getYear_data(b.getNgaylap());
+            String date_data = getDate_data(b.getNgaylap());
+            String mounth_data = getMounth_data(b.getNgaylap());
             //kiem tra ngay trong database == ngay trong comboxngay
             String year1_get = getYear(jcomboDate);
             String date1_get = getDate(jcomboDate);
             String mounth1_get = getMounth(jcomboDate);    //
             if(date1_get.equals(date_data) && mounth1_get.equals(mounth_data) && year1_get.equals(year_data))
             {
-            tien = tien + b.getSum();
+            tien = tien + b.getTongtien();
             }
         }
         String tongtien = String.valueOf(tien);
@@ -294,12 +294,12 @@ public class AdminView extends javax.swing.JFrame {
         for(Bill b: bill)
         {
             //lay ngay trong database
-            String mounth_data_get = b.getId_combo();
+            String mounth_data_get = b.getNgaylap();
             String mounth_data = mounth_data_get.substring(0, mounth_data_get.indexOf("-") + 3);
             //kiem tra ngay trong database == ngay trong comboxngay
             if(mounth.equals(mounth_data))
             {
-            tien_mounth = tien_mounth + b.getSum();
+            tien_mounth = tien_mounth + b.getTongtien();
             }
         }
         String tongtien_mounth = String.valueOf(tien_mounth);
@@ -312,26 +312,26 @@ public class AdminView extends javax.swing.JFrame {
         for(Bill b: bill)
         {
             //lay ngay trong database
-            String year_data_get = b.getId_combo();
-            String year_data = getYear_data(b.getId_combo());
-            String mounth_data = getMounth_data(b.getId_combo());
+            String year_data_get = b.getNgaylap();
+            String year_data = getYear_data(b.getNgaylap());
+            String mounth_data = getMounth_data(b.getNgaylap());
             int b1 = Integer.parseInt(mounth_data);
             //kiem tra ngay trong database == ngay trong comboxngay
             if(year.equals(year_data))
             {
-            tien_year = tien_year + b.getSum();
+            tien_year = tien_year + b.getTongtien();
             }
             //tinh tong tien dua tren quý
             if(year_get.equals(year_data))
             {
                 if(b1 < 4  && jComboQui.getSelectedItem().equals("1"))
-                    tien_qui = tien_qui + b.getSum();
+                    tien_qui = tien_qui + b.getTongtien();
                 if(b1 > 3 && b1 < 7   && jComboQui.getSelectedItem().equals("2"))
-                    tien_qui = tien_qui + b.getSum();
+                    tien_qui = tien_qui + b.getTongtien();
                 if(b1 > 6 && b1 < 10   && jComboQui.getSelectedItem().equals("3"))
-                    tien_qui = tien_qui + b.getSum();
+                    tien_qui = tien_qui + b.getTongtien();
                 if(b1 > 9   && jComboQui.getSelectedItem().equals("4"))
-                    tien_qui = tien_qui + b.getSum();
+                    tien_qui = tien_qui + b.getTongtien();
             }
         }
         JTongTienQui.setText(tien_qui+"đ");
@@ -343,9 +343,9 @@ public class AdminView extends javax.swing.JFrame {
          for(Bill b: bill)
         {
             //lay ngay trong database
-            String date_data_get = b.getId_combo();
-            String date_data = getDate_data(b.getId_combo());
-            String mounth_data = getMounth_data(b.getId_combo());
+            String date_data_get = b.getNgaylap();
+            String date_data = getDate_data(b.getNgaylap());
+            String mounth_data = getMounth_data(b.getNgaylap());
             int a1 = Integer.parseInt(date_data);
             int b1 = Integer.parseInt(mounth_data);
             //lay ngay tren ngay 1
@@ -362,18 +362,18 @@ public class AdminView extends javax.swing.JFrame {
             {
                 if(a1 >= a2 && a1 <= a3)
                 {
-                    tongtien_khoangngay = tongtien_khoangngay + b.getSum();
+                    tongtien_khoangngay = tongtien_khoangngay + b.getTongtien();
                 }    
             }
             else if(b1 >= b2 && b1 < b3)
             {
                 if(a1 >= a2)
-                tongtien_khoangngay = tongtien_khoangngay + b.getSum();
+                tongtien_khoangngay = tongtien_khoangngay + b.getTongtien();
             }
             else if(b1 > b2 && b1 <= b3)
             {
                 if(a1 <= a3)
-                tongtien_khoangngay = tongtien_khoangngay + b.getSum();
+                tongtien_khoangngay = tongtien_khoangngay + b.getTongtien();
             }
             JTongTienKhoangNgay.setText(tongtien_khoangngay +"đ");
             
@@ -384,15 +384,15 @@ public class AdminView extends javax.swing.JFrame {
         //lay ngay de so sanh
         String dateget = jcomboDate.getSelectedItem().toString();
         String date = dateget.substring(dateget.lastIndexOf("-") + 1); 
-        int id_mon = 0;
+        String id_mon = "";
         int count = 0;
         for(Bill b: bill)
         {
             //lay ngay trong database
-            String date_data_get = b.getId_combo();
-            String year_data = getYear_data(b.getId_combo());
-            String date_data = getDate_data(b.getId_combo());
-            String mounth_data = getMounth_data(b.getId_combo());
+            String date_data_get = b.getNgaylap();
+            String year_data = getYear_data(b.getNgaylap());
+            String date_data = getDate_data(b.getNgaylap());
+            String mounth_data = getMounth_data(b.getNgaylap());
             //kiem tra ngay trong database == ngay trong comboxngay
             String year1_get = getYear(jcomboDate);
             String date1_get = getDate(jcomboDate);
@@ -402,11 +402,11 @@ public class AdminView extends javax.swing.JFrame {
                for(Bill_Detail bdetail: bill_Detail)
                {
                    //lay id cua hoadon va chitiethoa don so sanh
-                   if(b.getId_bill().equals(bdetail.getId_bill()))
+                   if(b.getId_hoadon().equals(bdetail.getId_hoadon()))
                    {
                        //lay id mon an
-                       int slmon = bdetail.getQuantity_combo();
-                       if(id_mon != slmon)
+                       String slmon = bdetail.getId_sp();
+                       if(!id_mon.equals(slmon))
                        count++;
                        id_mon = slmon;
                    }
@@ -417,11 +417,11 @@ public class AdminView extends javax.swing.JFrame {
         
         String mounth = jComboMounth.getSelectedItem().toString();   
         int count_mounth = 0;
-        int id_mon_thang = 0;
+        String id_mon_thang = "";
         for(Bill b: bill)
         {
             //lay ngay trong database
-            String mounth_data_get = b.getId_combo();
+            String mounth_data_get = b.getNgaylap();
             String mounth_data = mounth_data_get.substring(0, mounth_data_get.indexOf("-") + 3);
             //so sanh ngay trong database va comboxngay
             if(mounth.equals(mounth_data))
@@ -429,11 +429,11 @@ public class AdminView extends javax.swing.JFrame {
                for(Bill_Detail bdetail: bill_Detail)
                {
                    //lay id cua hoadon va chitiethoa don so sanh
-                   if(b.getId_bill().equals(bdetail.getId_bill()))
+                   if(b.getId_hoadon().equals(bdetail.getId_hoadon()))
                    {
                        //lay id mon an
-                       int slmon = bdetail.getQuantity_combo();
-                       if(id_mon_thang != slmon)
+                       String slmon = bdetail.getId_sp();
+                       if(!id_mon_thang.equals(slmon))
                        count_mounth++;
                        id_mon_thang = slmon;
                    }
@@ -444,23 +444,23 @@ public class AdminView extends javax.swing.JFrame {
         
         String year = jComboYear.getSelectedItem().toString();   
         int count_year = 0;
-        int id_mon_nam = 0;
+        String id_mon_nam = "";
         for(Bill b: bill)
         {
             //lay ngay trong database
-            String year_data_get = b.getId_combo();
-            String year_data = getYear_data(b.getId_combo());
+            String year_data_get = b.getNgaylap();
+            String year_data = getYear_data(b.getNgaylap());
             //so sanh ngay trong database va comboxngay
             if(year.equals(year_data))
             {
                for(Bill_Detail bdetail: bill_Detail)
                {
                    //lay id cua hoadon va chitiethoa don so sanh
-                   if(b.getId_bill().equals(bdetail.getId_bill()))
+                   if(b.getId_hoadon().equals(bdetail.getId_hoadon()))
                    {
                        //lay id mon an
-                       int slmon = bdetail.getQuantity_combo();
-                       if(id_mon_nam != slmon)
+                       String slmon = bdetail.getId_sp();
+                       if(!id_mon_nam.equals(slmon))
                        count_year++;
                        id_mon_nam = slmon;
                    }

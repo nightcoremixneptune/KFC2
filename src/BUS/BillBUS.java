@@ -24,11 +24,11 @@ public class BillBUS {
     {
         
     }
-    public Bill get(String id_bill)
+    public Bill get(String id_hoadon)
     {
         for(Bill b : Billl )
         {
-            if(b.getId_bill().equals(id_bill))
+            if(b.getId_hoadon().equals(id_hoadon))
             {
                 return b;
             }
@@ -80,7 +80,7 @@ public class BillBUS {
     {
         for(int i = 0 ; i < Billl.size() ; i++)
         {
-            if(Billl.get(i).getId_bill().equals(b.getId_bill()))
+            if(Billl.get(i).getId_hoadon().equals(b.getId_hoadon()))
             {
                 Billl.set(i, b);
                 BillDAO billDAO = new BillDAO();
@@ -89,31 +89,31 @@ public class BillBUS {
             }
         }
     }
-    public boolean check(String id_bill)
+    public boolean check(String id_hoadon)
     {
         for(Bill b : Billl)
         {
-            if(b.getId_bill().equals(id_bill))
+            if(b.getId_hoadon().equals(id_hoadon))
             {
                 return true;
             }
         }
         return false;
     }
-    public ArrayList<Bill> search(String id_bill,String id_combo,String id_crew,String id_sale,int sum)
+    public ArrayList<Bill> search(String id_hoadon, String id_khach, String id_nhanvien, String id_khuyenmai, String ngaylap ,int tongtien)
     {
         ArrayList<Bill> search = new ArrayList<>();
-        id_bill = id_bill.isEmpty()?id_bill = "": id_bill;
-        id_combo = id_combo.isEmpty()?id_combo = "": id_combo;
-        id_crew = id_crew.isEmpty()?id_crew = "": id_crew;
-        id_sale = id_sale.isEmpty()?id_sale = "": id_sale;
+        id_hoadon = id_hoadon.isEmpty()?id_hoadon = "": id_hoadon;
+        id_khach = id_khach.isEmpty()?id_khach = "": id_nhanvien;
+        id_nhanvien = id_nhanvien.isEmpty()?id_nhanvien = "": id_nhanvien;
+        ngaylap = ngaylap.isEmpty()?ngaylap = "": ngaylap;
 
         for(Bill b : Billl)
         {
-            if( b.getId_bill().contains(id_bill) && 
-                b.getId_combo().contains(id_combo) &&
-                b.getId_crew().contains(id_crew) &&
-                b.getId_sale().contains(id_sale))
+            if( b.getId_hoadon().contains(id_hoadon) && 
+                b.getId_khach().contains(id_khach) &&
+                b.getId_nhanvien().contains(id_nhanvien) &&
+                b.getNgaylap().contains(ngaylap))
             {
                 search.add(b);
             }

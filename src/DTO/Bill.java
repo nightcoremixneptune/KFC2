@@ -7,60 +7,64 @@ package DTO;
  * @author Admin
  */
 public class Bill{
-    String id_bill,id_combo,id_crew,id_sale;
-    int sum;
+    int tongtien;
+    String ngaylap, id_hoadon,id_khach,id_nhanvien,id_khuyenmai;
 
-    public Bill(String id_bill, String id_combo, String id_crew, String id_sale, int sum) {
-        this.id_bill = id_bill;
-        this.id_combo = id_combo;
-        this.id_crew = id_crew;
-        this.id_sale = id_sale;
-        this.sum = sum;
+    public Bill(String id_hoadon, String id_khach, String id_nhanvien, String id_khuyenmai, String ngaylap ,int tongtien) {
+        this.id_hoadon = id_hoadon;
+        this.id_khach = id_khach;
+        this.id_khuyenmai = id_khuyenmai;
+        this.id_nhanvien = id_nhanvien;
+        this.tongtien = tongtien;
+        this.ngaylap = ngaylap;
     }
 
-    public void setId_bill(String id_bill) {
-        this.id_bill = id_bill;
+    public void setTongtien(int tongtien) {
+        this.tongtien = tongtien;
     }
 
-    public void setId_combo(String id_combo) {
-        this.id_combo = id_combo;
+    public void setNgaylap(String ngaylap) {
+        this.ngaylap = ngaylap;
     }
 
-    public void setId_crew(String id_crew) {
-        this.id_crew = id_crew;
+    public void setId_hoadon(String id_hoadon) {
+        this.id_hoadon = id_hoadon;
     }
 
-    public void setId_sale(String id_sale) {
-        this.id_sale = id_sale;
+    public void setId_khach(String id_khach) {
+        this.id_khach = id_khach;
     }
 
-    public void setSum(int sum) {
-        this.sum = sum;
+    public void setId_nhanvien(String id_nhanvien) {
+        this.id_nhanvien = id_nhanvien;
     }
 
-    public String getId_bill() {
-        return id_bill;
+    public void setId_khuyenmai(String id_khuyenmai) {
+        this.id_khuyenmai = id_khuyenmai;
     }
 
-    public String getId_combo() {
-        return id_combo;
+    public int getTongtien() {
+        return tongtien;
     }
 
-    public String getId_crew() {
-        return id_crew;
+    public String getNgaylap() {
+        return ngaylap;
     }
 
-    public String getId_sale() {
-        return id_sale;
+    public String getId_hoadon() {
+        return id_hoadon;
     }
 
-    public int getSum() {
-        return sum;
+    public String getId_khach() {
+        return id_khach;
     }
 
-    
-    
+    public String getId_nhanvien() {
+        return id_nhanvien;
+    }
 
-    
+    public String getId_khuyenmai() {
+        return id_khuyenmai;
+    }
 
 }

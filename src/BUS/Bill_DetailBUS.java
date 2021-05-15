@@ -24,11 +24,11 @@ public class Bill_DetailBUS {
     {
         
     }
-    public Bill_Detail get(String id_bill)
+    public Bill_Detail get(String id_hoadon)
     {
         for(Bill_Detail bd : Bill_detaill )
         {
-            if(bd.getId_bill().equals(id_bill))
+            if(bd.getId_hoadon().equals(id_hoadon))
             {
                 return bd;
             }
@@ -76,30 +76,7 @@ public class Bill_DetailBUS {
         }
     }*/
     
-    public void setTP(Bill_Detail bd)
-    {
-        for(int i = 0 ; i < Bill_detaill.size() ; i++)
-        {
-            if(Bill_detaill.get(i).getId_bill().equals(bd.getId_bill()))
-            {
-                Bill_detaill.set(i, bd);
-                Bill_DetailDAO bill_DetailDAO = new Bill_DetailDAO();
-                bill_DetailDAO.set(bd);
-                return;
-            }
-        }
-    }
-    public boolean check(String id_bill)
-    {
-        for(Bill_Detail b : Bill_detaill)
-        {
-            if(b.getId_bill().equals(id_bill))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     public ArrayList<Bill_Detail> getList() {
         listBill_Detail();
