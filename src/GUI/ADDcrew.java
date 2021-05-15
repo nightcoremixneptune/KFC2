@@ -5,8 +5,8 @@
  */
 package GUI;
 
-import DATA.CrewDAO;
-import DTO.Crew;
+import DATA.NhanvienDAO;
+import DTO.Nhanvien;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,47 +38,21 @@ public class ADDcrew extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtId_crew = new javax.swing.JTextField();
-        cmPosition = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtSalary = new javax.swing.JTextField();
+        txtLuong_add = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtName_crew = new javax.swing.JTextField();
+        txtHoNV_add = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtPhone = new javax.swing.JTextField();
+        txtPhone_add = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cmSex = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        lbShift = new javax.swing.JLabel();
-        cmShift = new javax.swing.JComboBox<>();
         btnOK = new javax.swing.JButton();
-        jtbImg = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtTenNV_add = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtId_crew.addActionListener(new java.awt.event.ActionListener() {
+        txtLuong_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtId_crewActionPerformed(evt);
-            }
-        });
-
-        cmPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "thu ngân", "phục vụ", "đầu bếp" }));
-        cmPosition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmPositionActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Mã Nhân Viên");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Chức vụ");
-
-        txtSalary.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSalaryActionPerformed(evt);
+                txtLuong_addActionPerformed(evt);
             }
         });
 
@@ -86,30 +60,16 @@ public class ADDcrew extends javax.swing.JFrame {
         jLabel7.setText("Lương");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Tên Nhân Viên");
+        jLabel2.setText("Họ Nhân Viên");
+
+        txtPhone_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPhone_addActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Số Điện Thoại");
-
-        cmSex.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn", "Nam", "Nữ" }));
-        cmSex.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmSexActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Giới Tính");
-
-        lbShift.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbShift.setText("Ca Làm Việc");
-
-        cmShift.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
-        cmShift.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmShiftActionPerformed(evt);
-            }
-        });
 
         btnOK.setText("OK");
         btnOK.addActionListener(new java.awt.event.ActionListener() {
@@ -118,10 +78,8 @@ public class ADDcrew extends javax.swing.JFrame {
             }
         });
 
-        jtbImg.setBackground(new java.awt.Color(255, 255, 255));
-        jtbImg.setText("image");
-        jtbImg.setToolTipText("");
-        jtbImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Tên Nhân Viên");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,72 +87,46 @@ public class ADDcrew extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(68, 68, 68)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel3))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtId_crew)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(cmPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(158, 158, 158))
-                    .addComponent(txtName_crew)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cmSex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(lbShift)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtPhone, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSalary))
-                .addGap(86, 86, 86)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtbImg, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtTenNV_add, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtLuong_add, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtHoNV_add, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtPhone_add, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtId_crew, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtName_crew, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmSex, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(lbShift)
-                            .addComponent(cmShift, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jtbImg, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(cmPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtHoNV_add, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtPhone_add, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtTenNV_add, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                    .addComponent(txtLuong_add, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -215,25 +147,9 @@ public class ADDcrew extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtId_crewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtId_crewActionPerformed
+    private void txtLuong_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLuong_addActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtId_crewActionPerformed
-
-    private void cmPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmPositionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmPositionActionPerformed
-
-    private void txtSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalaryActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSalaryActionPerformed
-
-    private void cmSexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmSexActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmSexActionPerformed
-
-    private void cmShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmShiftActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmShiftActionPerformed
+    }//GEN-LAST:event_txtLuong_addActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
             
@@ -242,27 +158,28 @@ public class ADDcrew extends javax.swing.JFrame {
         //    }
         //    else {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-        String id = ad.crBUS.addid();
-        String name_crew = txtName_crew.getText();
-        String sex = cmSex.getSelectedItem().toString();
-        String position = cmPosition.getSelectedItem().toString();
-        String phone = txtPhone.getText();
-        int salary = Integer.parseInt(txtSalary.getText());
-        String shift = cmShift.getSelectedItem().toString();
-        String img = timeStamp;
-        Crew cr = new Crew(id, name_crew, phone, sex, img, salary, shift,position, 1);
-        if(ad.crBUS.check(id))
+        String id_nhanvien = ad.nhanvienBUS.addid();
+        String hoNV = txtHoNV_add.getText();
+        String tenNV = txtTenNV_add.getText().toString();
+        String phoneNV =  txtPhone_add.getText().toString();
+        int luong = Integer.parseInt(txtLuong_add.getText());
+        Nhanvien nv = new Nhanvien(id_nhanvien, hoNV, tenNV, phoneNV, luong, 1);
+        if(ad.nhanvienBUS.check(id_nhanvien))
         {
             JOptionPane.showMessageDialog(null, "Mã nhân viên đă tồn tại !!!");
             return;
         }
         else
         {
-            ad.crBUS.addCREW(cr);
+            ad.nhanvienBUS.addNhanvien(nv);
             
         }
         //}
     }//GEN-LAST:event_btnOKActionPerformed
+
+    private void txtPhone_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhone_addActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPhone_addActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,21 +188,14 @@ public class ADDcrew extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;
-    private javax.swing.JComboBox<String> cmPosition;
-    private javax.swing.JComboBox<String> cmSex;
-    private javax.swing.JComboBox<String> cmShift;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel jtbImg;
-    private javax.swing.JLabel lbShift;
-    private javax.swing.JTextField txtId_crew;
-    private javax.swing.JTextField txtName_crew;
-    private javax.swing.JTextField txtPhone;
-    private javax.swing.JTextField txtSalary;
+    private javax.swing.JTextField txtHoNV_add;
+    private javax.swing.JTextField txtLuong_add;
+    private javax.swing.JTextField txtPhone_add;
+    private javax.swing.JTextField txtTenNV_add;
     // End of variables declaration//GEN-END:variables
 }

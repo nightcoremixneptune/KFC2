@@ -71,6 +71,8 @@ public class NhanvienDAO {
             
             mySQL.executeUpdate(sql);
     }
+    
+    /*
     public String getid(String id) throws SQLException
     {
         String sql = "SELECT * FROM nhanvien where id_nhanvien = '"+id+"' ";
@@ -81,11 +83,12 @@ public class NhanvienDAO {
             }
             return sluong;
     }
+    */
 
     public void add(Nhanvien nv){
         
         MySQLConnect mySQL = new MySQLConnect();
-         String sqlad = "INSERT INTO crew (`id_nhanvien`,`hoNV`, `tenNV`, `phoneNV`, `luong`, `status`) VALUES (";
+         String sqlad = "INSERT INTO nhanvien (`id_nhanvien`,`hoNV`, `tenNV`, `phoneNV`, `luong`, `status`) VALUES (";
                 sqlad += "'"+nv.getId_nhanvien()+"',";
                 sqlad += "'"+nv.getHoNV()+"',";
                 sqlad += "'"+nv.getTenNV()+"',";

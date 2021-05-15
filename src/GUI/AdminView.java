@@ -475,6 +475,7 @@ public class AdminView extends javax.swing.JFrame {
         jTongMonNam.setText(String.valueOf(count_year)+" Món");
     }
     
+    /*
     public void sl() throws SQLException
     {
         model = (DefaultTableModel) tblCrew.getModel();
@@ -490,7 +491,7 @@ public class AdminView extends javax.swing.JFrame {
         
         
     }
-
+    */
     public void Chepdulieu() // Chép ArrayList lên table
     {
        
@@ -3053,11 +3054,7 @@ public class AdminView extends javax.swing.JFrame {
         ad.pack();
         ad.setLocationRelativeTo(null);
         ad.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        try {
-            sl();
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
            
     }//GEN-LAST:event_btnAddcrewActionPerformed
 
