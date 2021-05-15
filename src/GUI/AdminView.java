@@ -586,10 +586,7 @@ public class AdminView extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         btnAddcrew = new javax.swing.JButton();
         txtSearchId_crew = new javax.swing.JTextField();
-        txtSearchName_crew = new javax.swing.JTextField();
-        txtSearchSex = new javax.swing.JTextField();
-        txtSearchPosition = new javax.swing.JTextField();
-        txtSearchPhone = new javax.swing.JTextField();
+        txtSearchHoNV = new javax.swing.JTextField();
         txtSearchShift = new javax.swing.JTextField();
         txtSearchSalary = new javax.swing.JTextField();
         txtSearchStatus_crew = new javax.swing.JTextField();
@@ -1222,7 +1219,7 @@ public class AdminView extends javax.swing.JFrame {
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTenNV, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1242,7 +1239,7 @@ public class AdminView extends javax.swing.JFrame {
                         .addComponent(txtLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5))
                     .addComponent(txtPhoneNV, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, 180));
@@ -1270,14 +1267,23 @@ public class AdminView extends javax.swing.JFrame {
                 txtSearchId_crewKeyReleased(evt);
             }
         });
-        jPanel1.add(txtSearchId_crew, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 125, 39));
-        jPanel1.add(txtSearchName_crew, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 130, 39));
-        jPanel1.add(txtSearchSex, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 130, 39));
-        jPanel1.add(txtSearchPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 270, 121, 39));
-        jPanel1.add(txtSearchPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 270, 130, 39));
-        jPanel1.add(txtSearchShift, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 270, 121, 39));
-        jPanel1.add(txtSearchSalary, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 270, 130, 39));
-        jPanel1.add(txtSearchStatus_crew, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 270, 130, 39));
+        jPanel1.add(txtSearchId_crew, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 200, 40));
+
+        txtSearchHoNV.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchHoNVKeyReleased(evt);
+            }
+        });
+        jPanel1.add(txtSearchHoNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 205, 40));
+
+        txtSearchShift.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchShiftActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtSearchShift, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 205, 40));
+        jPanel1.add(txtSearchSalary, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, 205, 40));
+        jPanel1.add(txtSearchStatus_crew, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 270, 210, 39));
 
         btnEditcrew.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnEditcrew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/editbutton.png"))); // NOI18N
@@ -1323,13 +1329,22 @@ public class AdminView extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 480, 189, 78));
 
         btnRefeshCrew.setBackground(new java.awt.Color(255, 51, 255));
-        btnRefeshCrew.setText("KHÔI PHỤC");
+        btnRefeshCrew.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnRefeshCrew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Refreshbutton.png"))); // NOI18N
+        btnRefeshCrew.setText("Refresh");
+        btnRefeshCrew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRefeshCrew.setMaximumSize(new java.awt.Dimension(221, 87));
+        btnRefeshCrew.setMinimumSize(new java.awt.Dimension(221, 87));
+        btnRefeshCrew.setPreferredSize(new java.awt.Dimension(221, 87));
+        btnRefeshCrew.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Refreshpressedbutton.png"))); // NOI18N
+        btnRefeshCrew.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/RefreshHoverbutton.png"))); // NOI18N
         btnRefeshCrew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefeshCrewActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRefeshCrew, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 189, 78));
+        jPanel1.add(btnRefeshCrew, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 480, 189, 78));
+        btnRefeshCrew.getAccessibleContext().setAccessibleName("Refresh");
 
         btnNewCrew.setText("LÀM MỚI");
         btnNewCrew.addActionListener(new java.awt.event.ActionListener() {
@@ -1504,7 +1519,7 @@ public class AdminView extends javax.swing.JFrame {
                     .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1604,7 +1619,7 @@ public class AdminView extends javax.swing.JFrame {
         jLabel39.setText("...");
 
         jLabel41.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel41.setText("Tổng cộng");
+        jLabel41.setText("Tổng cộng số lượng hóa đơn");
 
         jPanel18.setBackground(new java.awt.Color(51, 204, 255));
         jPanel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
@@ -1979,7 +1994,7 @@ public class AdminView extends javax.swing.JFrame {
         jLabel54.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel54.setText("...");
 
-        jButton15.setText("chi tiết");
+        jButton15.setText("xem chi tiết");
         jButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton15ActionPerformed(evt);
@@ -1992,7 +2007,7 @@ public class AdminView extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2000,27 +2015,23 @@ public class AdminView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField15)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(jLabel41)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel39)
-                                .addGap(107, 107, 107)
-                                .addComponent(jLabel53)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel54)))
-                        .addGap(78, 78, 78))))
+                        .addComponent(jTextField15))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel10Layout.createSequentialGroup()
+                            .addComponent(jLabel41)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel39)
+                            .addGap(107, 107, 107)
+                            .addComponent(jLabel53)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel54))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 959, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton15)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton15)
-                .addGap(157, 157, 157))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2043,7 +2054,7 @@ public class AdminView extends javax.swing.JFrame {
                     .addComponent(jLabel39)
                     .addComponent(jLabel53)
                     .addComponent(jLabel54))
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Chi Tiết Giao Dịch", jPanel10);
@@ -2057,7 +2068,7 @@ public class AdminView extends javax.swing.JFrame {
         pnlStatCardLayout.setVerticalGroup(
             pnlStatCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlStatCardLayout.createSequentialGroup()
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 807, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -3109,10 +3120,6 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLuongActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupplierActionPerformed
                 CardLayout.show(pnlCards, "pnlCard5");
     }//GEN-LAST:event_btnSupplierActionPerformed
@@ -3410,6 +3417,18 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenNVActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtSearchShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchShiftActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchShiftActionPerformed
+
+    private void txtSearchHoNVKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchHoNVKeyReleased
+        outModel(model,nhanvienBUS.searchHoNV(txtSearchHoNV.getText()),1);
+    }//GEN-LAST:event_txtSearchHoNVKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -3673,12 +3692,9 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField txtId_nhanvien;
     private javax.swing.JTextField txtLuong;
     private javax.swing.JTextField txtPhoneNV;
+    private javax.swing.JTextField txtSearchHoNV;
     private javax.swing.JTextField txtSearchId_crew;
-    private javax.swing.JTextField txtSearchName_crew;
-    private javax.swing.JTextField txtSearchPhone;
-    private javax.swing.JTextField txtSearchPosition;
     private javax.swing.JTextField txtSearchSalary;
-    private javax.swing.JTextField txtSearchSex;
     private javax.swing.JTextField txtSearchShift;
     private javax.swing.JTextField txtSearchStatus_crew;
     private javax.swing.JTextField txtTenNV;

@@ -3,28 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/DTO/Sanpham.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/GUI/BillView.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/GUI/ADDcrew.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/GUI/hello.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/GUI/CrewView.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/DATA/NhanvienDAO.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/DTO/Sale.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/BUS/MemberBUS.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/GUI/AdminView.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/BUS/SaleBUS.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/DATA/SanphamDAO.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/BUS/NhanvienBUS.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/BUS/Bill_DetailBUS.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/BUS/SanphamBUS.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/DTO/Nhanvien.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/DATA/Bill_DetailDAO.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/DTO/Bill.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/ConnectMysql/MySQLConnect.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/DTO/DatBan.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/GUI/CrewRefeshGUI.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/GUI/NewJFrame.java</file>
-            <file>file:/C:/Users/LacKhaiMinh/Downloads/KFC/src/DTO/Bill_Detail.java</file>
+            <file>file:/C:/Users/LacKhaiMinh/Desktop/KFC2/src/GUI/AdminView.java</file>
+            <file>file:/C:/Users/LacKhaiMinh/Desktop/KFC2/src/Image/button%20clicked.png</file>
+            <file>file:/C:/Users/LacKhaiMinh/Desktop/KFC2/src/DATA/NhanvienDAO.java</file>
+            <file>file:/C:/Users/LacKhaiMinh/Desktop/KFC2/src/GUI/CrewRefeshGUI.java</file>
+            <file>file:/C:/Users/LacKhaiMinh/Desktop/KFC2/src/Image/customerbutton.png</file>
+            <file>file:/C:/Users/LacKhaiMinh/Desktop/KFC2/src/BUS/NhanvienBUS.java</file>
+            <file>file:/C:/Users/LacKhaiMinh/Desktop/KFC2/src/GUI/ADDcrew.java</file>
+            <file>file:/C:/Users/LacKhaiMinh/Desktop/KFC2/src/GUI/CrewView.java</file>
+            <file>file:/C:/Users/LacKhaiMinh/Desktop/KFC2/src/Image/button%20pressed.png</file>
         </group>
     </open-files>
 </project-private>

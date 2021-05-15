@@ -128,6 +128,22 @@ public class NhanvienBUS {
         }
         return search;
     }
+    
+    public ArrayList<Nhanvien> searchHoNV(String HoNV)
+    {
+        ArrayList<Nhanvien> search = new ArrayList<>();
+        HoNV = HoNV.isEmpty()?HoNV = "": HoNV;
+        
+        for(Nhanvien nv : Nhanvienl)
+        {
+            if( nv.getHoNV().contains(HoNV)) 
+                
+            {
+                search.add(nv);
+            }
+        }
+        return search;
+    }
     public ArrayList<Nhanvien> getList() {
         listNhanvien();
         return Nhanvienl;

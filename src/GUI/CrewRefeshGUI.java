@@ -5,8 +5,8 @@
  */
 package GUI;
 
-import BUS.CrewBUS;
-import DTO.Crew;
+import BUS.NhanvienBUS;
+import DTO.Nhanvien;
 import com.mysql.jdbc.PreparedStatement;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -55,8 +55,8 @@ public class CrewRefeshGUI extends javax.swing.JFrame {
     public void Chepdulieuxoa() // Chép ArrayList lên table
     {
        
-        if(ad.crBUS.getList()== null)ad.crBUS.listCrew();
-        ArrayList<Crew> nv = ad.crBUS.getList();
+        if(ad.nhanvienBUS.getList()== null)ad.nhanvienBUS.listNhanvien();
+        ArrayList<Nhanvien> nv = ad.nhanvienBUS.getList();
 //        model.setRowCount(0);
         outModel(model,nv);
     }
@@ -72,34 +72,34 @@ public class CrewRefeshGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCrewRefesh = new javax.swing.JTable();
+        tblNhanvienRefesh = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblCrewRefesh.setModel(new javax.swing.table.DefaultTableModel(
+        tblNhanvienRefesh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Mã Nhân Viên", "Tên Nhân Viên", "Giới tính", "Loại Nhân Viên", "Số Điện Thoại", "Ca Làm", "Lương", "img"
+                "Mã Nhân Viên", "Họ Nhân Viên", "Tên Nhân Viên", "Số Điện Thoại", "Lương"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, true, false, true, true, true, true
+                true, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblCrewRefesh.setRowHeight(30);
-        tblCrewRefesh.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblNhanvienRefesh.setRowHeight(30);
+        tblNhanvienRefesh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCrewRefeshMouseClicked(evt);
+                tblNhanvienRefeshMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblCrewRefesh);
+        jScrollPane1.setViewportView(tblNhanvienRefesh);
 
         jButton1.setText("Khôi phục");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -131,10 +131,10 @@ public class CrewRefeshGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblCrewRefeshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCrewRefeshMouseClicked
+    private void tblNhanvienRefeshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanvienRefeshMouseClicked
         // TODO add your handling code here:
-        model = (DefaultTableModel) tblCrewRefesh.getModel();
-        int Row = tblCrewRefesh.getSelectedRow();
+        model = (DefaultTableModel) tblNhanvienRefesh.getModel();
+        int Row = tblNhanvienRefesh.getSelectedRow();
         if(Row == -1)
         {
 
@@ -143,12 +143,12 @@ public class CrewRefeshGUI extends javax.swing.JFrame {
         {
             
         }
-    }//GEN-LAST:event_tblCrewRefeshMouseClicked
+    }//GEN-LAST:event_tblNhanvienRefeshMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        model = (DefaultTableModel) tblCrewRefesh.getModel();
-        int Row = tblCrewRefesh.getSelectedRow();
+        model = (DefaultTableModel) tblNhanvienRefesh.getModel();
+        int Row = tblNhanvienRefesh.getSelectedRow();
         if(Row == -1)
         {
            JOptionPane.showMessageDialog(null, "Bạn chưa chọn dòng để khôi phục");
@@ -159,35 +159,33 @@ public class CrewRefeshGUI extends javax.swing.JFrame {
             int reply = JOptionPane.showConfirmDialog(rootPane, "Bạn muốn khôi phục không");
             if (reply == JOptionPane.YES_OPTION)
             {
-           String id = tblCrewRefesh.getModel().getValueAt(Row, 0).toString();
-           ad.crBUS.refeshCREW(id);   
-           outModel(model, ad.crBUS.getList());
+           String id = tblNhanvienRefesh.getModel().getValueAt(Row, 0).toString();
+           ad.nhanvienBUS.refeshCREW(id);   
+           outModel(model, ad.nhanvienBUS.getList());
           
            
         }    
         }        
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void outModel(DefaultTableModel model , ArrayList<Crew> cr) // Xuất ra Table từ ArrayList
+    public void outModel(DefaultTableModel model , ArrayList<Nhanvien> nv) // Xuất ra Table từ ArrayList
     {
-        model = (DefaultTableModel) tblCrewRefesh.getModel();
+        model = (DefaultTableModel) tblNhanvienRefesh.getModel();
         Vector data;
         model.setRowCount(0);
-        for(Crew c: cr)
+        for(Nhanvien c: nv)
         {
-            if(c.getStatus_crew() == 0)
+            if(c.getStatus() == 0)
             {
             data = new Vector();
-            data.add(c.getId_crew());
-            data.add(c.getName_crew());
-            data.add(c.getSex());
-            data.add(c.getPosition());
-            data.add(c.getPhone());
-            data.add(c.getSalary());
-            data.add(c.getImg());
+            data.add(c.getId_nhanvien());
+            data.add(c.getHoNV());
+            data.add(c.getTenNV());
+            data.add(c.getPhoneNV());
+            data.add(c.getLuong());
             model.addRow(data);
             }
         }
-        tblCrewRefesh.setModel(model);
+        tblNhanvienRefesh.setModel(model);
     }
     /**
      * @param args the command line arguments
@@ -197,6 +195,6 @@ public class CrewRefeshGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblCrewRefesh;
+    private javax.swing.JTable tblNhanvienRefesh;
     // End of variables declaration//GEN-END:variables
 }

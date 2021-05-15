@@ -5,8 +5,8 @@
  */
 package GUI;
 
-import BUS.CrewBUS;
-import DTO.Crew;
+import BUS.NhanvienBUS;
+import DTO.Nhanvien;
 import com.mysql.jdbc.PreparedStatement;
 import java.awt.BorderLayout;
 import java.awt.Color;

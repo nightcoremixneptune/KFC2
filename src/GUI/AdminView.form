@@ -850,7 +850,7 @@
                                       <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtTenNV" min="-2" pref="109" max="-2" attributes="0"/>
-                                      <EmptySpace pref="293" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -875,7 +875,7 @@
                                           </Group>
                                           <Component id="txtPhoneNV" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="85" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -978,56 +978,41 @@
                           </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="0" y="270" width="125" height="39"/>
+                              <AbsoluteConstraints x="0" y="270" width="200" height="40"/>
                             </Constraint>
                           </Constraints>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtSearchName_crew">
+                        <Component class="javax.swing.JTextField" name="txtSearchHoNV">
+                          <Events>
+                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchHoNVKeyReleased"/>
+                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="130" y="270" width="130" height="39"/>
-                            </Constraint>
-                          </Constraints>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txtSearchSex">
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="260" y="270" width="130" height="39"/>
-                            </Constraint>
-                          </Constraints>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txtSearchPosition">
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="390" y="270" width="121" height="39"/>
-                            </Constraint>
-                          </Constraints>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txtSearchPhone">
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="510" y="270" width="130" height="39"/>
+                              <AbsoluteConstraints x="200" y="270" width="205" height="40"/>
                             </Constraint>
                           </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtSearchShift">
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSearchShiftActionPerformed"/>
+                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="640" y="270" width="121" height="39"/>
+                              <AbsoluteConstraints x="400" y="270" width="205" height="40"/>
                             </Constraint>
                           </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtSearchSalary">
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="760" y="270" width="130" height="39"/>
+                              <AbsoluteConstraints x="600" y="270" width="205" height="40"/>
                             </Constraint>
                           </Constraints>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtSearchStatus_crew">
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="890" y="270" width="130" height="39"/>
+                              <AbsoluteConstraints x="800" y="270" width="210" height="39"/>
                             </Constraint>
                           </Constraints>
                         </Component>
@@ -1127,14 +1112,39 @@
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="33" red="ff" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="KH&#xd4;I PH&#x1ee4;C"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Tahoma" size="24" style="1"/>
+                            </Property>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/Image/Refreshbutton.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Refresh"/>
+                            <Property name="horizontalTextPosition" type="int" value="0"/>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[221, 87]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[221, 87]"/>
+                            </Property>
+                            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[221, 87]"/>
+                            </Property>
+                            <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/Image/Refreshpressedbutton.png"/>
+                            </Property>
+                            <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/Image/RefreshHoverbutton.png"/>
+                            </Property>
                           </Properties>
+                          <AccessibilityProperties>
+                            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Refresh"/>
+                          </AccessibilityProperties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefeshCrewActionPerformed"/>
                           </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                              <AbsoluteConstraints x="20" y="480" width="189" height="78"/>
+                              <AbsoluteConstraints x="9" y="480" width="189" height="78"/>
                             </Constraint>
                           </Constraints>
                         </Component>
@@ -1178,7 +1188,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jTabbedPane2" min="-2" pref="807" max="-2" attributes="0"/>
+                          <Component id="jTabbedPane2" min="-2" pref="646" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -1452,7 +1462,7 @@
                                           <Component id="jTextField20" min="-2" max="-2" attributes="0"/>
                                           <Component id="jTextField21" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="220" max="32767" attributes="0"/>
+                                      <EmptySpace pref="187" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1608,7 +1618,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jTextField12" min="-2" pref="253" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -1617,33 +1627,28 @@
                                           <Component id="jTextField14" min="-2" pref="250" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jTextField15" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jScrollPane3" alignment="0" min="-2" pref="1009" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
-                                                  <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="jScrollPane3" alignment="0" min="-2" pref="1009" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                                              <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <EmptySpace min="45" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jPanel18" min="-2" pref="959" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jButton15" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButton15" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1670,7 +1675,7 @@
                                       <Component id="jLabel53" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="200" max="32767" attributes="0"/>
+                                  <EmptySpace pref="39" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1755,7 +1760,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Tahoma" size="12" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="T&#x1ed5;ng c&#x1ed9;ng"/>
+                            <Property name="text" type="java.lang.String" value="T&#x1ed5;ng c&#x1ed9;ng s&#x1ed1; l&#x1b0;&#x1ee3;ng h&#xf3;a &#x111;&#x1a1;n"/>
                           </Properties>
                         </Component>
                         <Container class="javax.swing.JPanel" name="jPanel18">
@@ -2465,7 +2470,7 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton15">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="chi ti&#x1ebf;t"/>
+                            <Property name="text" type="java.lang.String" value="xem chi ti&#x1ebf;t"/>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton15ActionPerformed"/>
