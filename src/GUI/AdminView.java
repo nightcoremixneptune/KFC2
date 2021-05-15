@@ -7,11 +7,12 @@ package GUI;
 
 import BUS.BillBUS;
 import BUS.Bill_DetailBUS;
-import BUS.CrewBUS;
-import DATA.CrewDAO;
+import BUS.NhanvienBUS;
+import DATA.NhanvienDAO;
 import DTO.Bill;
 import DTO.Bill_Detail;
-import DTO.Crew;
+import DTO.Nhanvien;
+import DTO.Nhanvien;
 import com.mysql.jdbc.PreparedStatement;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -57,7 +58,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class AdminView extends javax.swing.JFrame {
-    public CrewBUS crBUS = new CrewBUS();
+    public NhanvienBUS nhanvienBUS = new NhanvienBUS();
     public BillBUS billBus = new BillBUS();
     public Bill_DetailBUS bill_detailBus = new Bill_DetailBUS();
     public DefaultTableModel model;
@@ -69,7 +70,7 @@ public class AdminView extends javax.swing.JFrame {
     int a =0;
     String b;
     String sluong;
-    CrewDAO crd = new CrewDAO();
+    NhanvienDAO crd = new NhanvienDAO();
   
 
     /**
@@ -138,24 +139,23 @@ public class AdminView extends javax.swing.JFrame {
     }
     
     
-    public void outModel(DefaultTableModel model , ArrayList<Crew> cr, int a) // Xuất ra Table từ ArrayList
+    public void outModel(DefaultTableModel model , ArrayList<Nhanvien> nv, int a) // Xuất ra Table từ ArrayList
     {
         model = (DefaultTableModel) tblCrew.getModel();
         Vector data;
         model.setRowCount(0);
-        for(Crew c: cr)
+        for(Nhanvien c: nv)
         {
-            if(c.getStatus_crew() == a)
+            if(c.getStatus() == a)
             {
             data = new Vector();
-            data.add(c.getId_crew());
-            data.add(c.getName_crew());
-            data.add(c.getSex());
-            data.add(c.getPosition());
-            data.add(c.getPhone());
-            data.add(c.getShift());
-            data.add(c.getSalary());
-            data.add(c.getImg());
+            data.add(c.getId_nhanvien());
+            data.add(c.getHoNV());
+            data.add(c.getTenNV());
+            data.add(c.getPhoneNV());
+            data.add(c.getLuong());
+            data.add(c.getStatus());
+
             model.addRow(data);
             }
         }
@@ -488,8 +488,8 @@ public class AdminView extends javax.swing.JFrame {
     public void Chepdulieu() // Chép ArrayList lên table
     {
        
-        if(crBUS.getList()== null)crBUS.listCrew();
-        ArrayList<Crew> nv = crBUS.getList();
+        if(nhanvienBUS.getList()== null)nhanvienBUS.listNhanvien();
+        ArrayList<Nhanvien> nv = nhanvienBUS.getList();
 //        model.setRowCount(0);
         outModel(model,nv,1);
     }
@@ -517,8 +517,8 @@ public class AdminView extends javax.swing.JFrame {
     public void Chepdulieuxoa() // Chép ArrayList lên table
     {
        
-        if(crBUS.getList()== null)crBUS.listCrew();
-        ArrayList<Crew> nv = crBUS.getList();
+        if(nhanvienBUS.getList()== null)nhanvienBUS.listNhanvien();
+        ArrayList<Nhanvien> nv = nhanvienBUS.getList();
 //        model.setRowCount(0);
         outModel(model,nv,0);
     }
@@ -3187,9 +3187,9 @@ public class AdminView extends javax.swing.JFrame {
             if (reply == JOptionPane.YES_OPTION)
             {
            String id = tblCrew.getModel().getValueAt(Row, 0).toString();
-           crBUS.deleteCREW(id);
+           nhanvienBUS.deleteNhanvien(id);
            
-                outModel(model,crBUS.getList(),1);
+                outModel(model,nhanvienBUS.getList(),1);
             }
             
         }        
@@ -3226,20 +3226,17 @@ public class AdminView extends javax.swing.JFrame {
         }
         else
         {
-            String id = txtId_crew.getText();
-            String name_crew = txtName_crew.getText();
-            String sex = cmSex.getSelectedItem().toString();
-            String position = cmPosition.getSelectedItem().toString();
-            String phone = txtPhone.getText();
-            int salary = Integer.parseInt(txtSalary.getText());
-            String shift = cmShift.getSelectedItem().toString();
-            String img = jLabel9.getText();
-            Crew cr = new Crew(id, name_crew, phone, sex, img, salary, shift,position, 1);
+            String id_nhanvien = txtId_crew.getText();
+            String hoNV = txtName_crew.getText();
+            String tenNV = cmSex.getSelectedItem().toString();
+            String phoneNV = cmPosition.getSelectedItem().toString();
+            int luong = Integer.parseInt(txtPhone.getText());
+            Nhanvien nv = new Nhanvien(id_nhanvien, hoNV, tenNV, phoneNV, luong, 1);
             int reply = JOptionPane.showConfirmDialog(rootPane, "bạn muốn sửa không");
             if (reply == JOptionPane.YES_OPTION)
             {
-                crBUS.setCREW(cr);
-                outModel(model,crBUS.getList(),1);
+                nhanvienBUS.setCREW(nv);
+                outModel(model,nhanvienBUS.getList(),1);
             }
             
         }            
@@ -3415,7 +3412,7 @@ public class AdminView extends javax.swing.JFrame {
 
     private void txtSearchId_crewKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchId_crewKeyReleased
         
-        outModel(model,crBUS.search(txtSearchId_crew.getText()),1);
+        outModel(model,nhanvienBUS.search(txtSearchId_crew.getText()),1);
     }//GEN-LAST:event_txtSearchId_crewKeyReleased
 
     private void txtSearchId_crewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchId_crewActionPerformed
