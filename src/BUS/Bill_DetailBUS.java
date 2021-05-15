@@ -47,6 +47,34 @@ public class Bill_DetailBUS {
         Bill_DetailDAO bill_DetailDAO = new Bill_DetailDAO();
         bill_DetailDAO.add(a);
     }
+    
+    /*
+    public void setTP(Bill_Detail b)
+    {
+        for(int i = 0 ; i < Bill_detaill.size() ; i++)
+        {
+            if(Bill_detaill.get(i).getId_hoadon().equals(b.getId_hoadon()))
+            {
+                Bill_detaill.set(i, b);
+                Bill_DetailDAO billDAO = new Bill_DetailDAO();
+                Bill_DetailDAO.set(b);
+                return;
+            }
+        }
+    }
+    */
+    
+    public boolean check(String id_hoadon)
+    {
+        for(Bill_Detail bd : Bill_detaill)
+        {
+            if(bd.getId_hoadon().equals(id_hoadon))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /*public void deleteTP(String id_bill)
     {
