@@ -62,11 +62,13 @@ public class AdminView extends javax.swing.JFrame {
     public BillBUS billBus = new BillBUS();
     public Bill_DetailBUS bill_detailBus = new Bill_DetailBUS();
     public DefaultTableModel model;
+    public DefaultTableModel model1;
     public DefaultComboBoxModel boxdate ;
     public DefaultComboBoxModel boxdate1 ;
     public DefaultComboBoxModel boxdate2 ;
     public DefaultComboBoxModel boxmounth ;
     public DefaultComboBoxModel boxyear ;
+    public DefaultComboBoxModel namenv ;
     int a =0;
     String b;
     String sluong;
@@ -93,7 +95,10 @@ public class AdminView extends javax.swing.JFrame {
         }
         Chepdulieu();
         Chepdulieudate();
+        chepdulieutennhanvien();
+        Chepdulieuthongke();
         ChepdulieuSales();
+        chepdulieutennhanvien();
         
     }
 
@@ -162,7 +167,135 @@ public class AdminView extends javax.swing.JFrame {
         model.fireTableDataChanged();
         
     }
+    public void thongketheoten(DefaultTableModel model1 , ArrayList<Bill> b, ArrayList<Nhanvien> nv)
+    {
+        model1 = (DefaultTableModel) jTableThongke.getModel();
+        Vector data;
+        model1.setRowCount(0);
+        String tennv = jComboNhanVien.getSelectedItem().toString();
+        for(Nhanvien c: nv)
+        {
+            String tennv_data = c.getHoNV() + " " + c.getTenNV();
+            if(tennv.equals(tennv_data))
+                for(Bill bi: b)
+                {
+                    if(c.getId_nhanvien().equals(bi.getId_nhanvien()))
+                    {
+                        data = new Vector();
+                        data.add(bi.getId_hoadon());
+                        data.add(bi.getId_khach());
+                        data.add(c.getHoNV() +" "+c.getTenNV());
+                        data.add(bi.getId_khuyenmai());
+                        data.add(bi.getNgaylap());
+                        data.add(bi.getTongtien());
+                        model1.addRow(data);
+                    }
+                }
+        }
+        jTableThongke.setModel(model1);
+        model1.fireTableDataChanged();
+    }        
+    public void tablethongke(DefaultTableModel model1 , ArrayList<Bill> b, ArrayList<Nhanvien> nv)
+    {
+        model1 = (DefaultTableModel) jTableThongke.getModel();
+        Vector data;
+        model1.setRowCount(0);
+        for(Bill bi: b)
+        {
+            for(Nhanvien c: nv)
+            {
+                String date_data_get = bi.getNgaylap();
+                String date_data = getDate_data(bi.getNgaylap());
+                String mounth_data = getMounth_data(bi.getNgaylap());
+                int a1 = Integer.parseInt(date_data);
+                int b1 = Integer.parseInt(mounth_data);
+                String date1_get = getDate(jComboDate1);
+                String mounth1_get = getMounth(jComboDate1);
+                int a2 = Integer.parseInt(date1_get);
+                int b2 = Integer.parseInt(mounth1_get);
+                String date1_2_get = getDate(jComboDate2);
+                String mounth2_get = getMounth(jComboDate2);
+                int a3 = Integer.parseInt(date1_2_get);
+                int b3 = Integer.parseInt(mounth2_get);
+                if(b1 == b2 && b1 == b3 && bi.getId_nhanvien().equals(c.getId_nhanvien()))
+                {
+                if(a1 >= a2 && a1 <= a3)
+                {
+                    data = new Vector();
+                    data.add(bi.getId_hoadon());
+                    data.add(bi.getId_khach());
+                    data.add(c.getHoNV() +" "+c.getTenNV());
+                    data.add(bi.getId_khuyenmai());
+                    data.add(bi.getNgaylap());
+                    data.add(bi.getTongtien());
+                    model1.addRow(data);
+                }    
+            }
+            else if(b1 >= b2 && b1 < b3 && bi.getId_nhanvien().equals(c.getId_nhanvien()))
+            {
+                if(a1 >= a2)
+                {
+                data = new Vector();
+                    data.add(bi.getId_hoadon());
+                    data.add(bi.getId_khach());
+                    data.add(c.getHoNV() +" "+c.getTenNV());
+                    data.add(bi.getId_khuyenmai());
+                    data.add(bi.getNgaylap());
+                    data.add(bi.getTongtien());
+                    model1.addRow(data);
+                }
+            }
+            else if(b1 > b2 && b1 <= b3 && bi.getId_nhanvien().equals(c.getId_nhanvien()))
+            {
+                if(a1 <= a3)
+                {
+                    data = new Vector();
+                    data.add(bi.getId_hoadon());
+                    data.add(bi.getId_khach());
+                    data.add(c.getHoNV() +" "+c.getTenNV());
+                    data.add(bi.getId_khuyenmai());
+                    data.add(bi.getNgaylap());
+                    data.add(bi.getTongtien());
+                    model1.addRow(data);
+                }
+            }
+            }
+        }
+        jTableThongke.setModel(model1);
+        model1.fireTableDataChanged();
+        jSoluongHoadon.setText(jTableThongke.getRowCount() + "");
+        int max = 0;
+        int tongtien = 0;
+        for(int i = 0; i < jTableThongke.getRowCount(); i++)
+        {
+            tongtien = Integer.parseInt(jTableThongke.getModel().getValueAt(i,5).toString());
+            max = max + tongtien;
+        }
+        jTongtientable.setText(max +"đ");
+        
+        
+    }
+    
     //lay ngay
+    public void nhanvien(ArrayList<Bill> bill,ArrayList<Nhanvien> nv){
+        namenv = new DefaultComboBoxModel();
+        ArrayList<String> testtennv = new ArrayList<String>();
+        for(Bill b: bill)
+        {
+            for(Nhanvien c: nv)
+            {
+                if(b.getId_nhanvien().equals(c.getId_nhanvien()))
+                {
+                  String tennv =   c.getHoNV() + " " +c.getTenNV();
+                  if(!testtennv.contains(tennv))
+                  namenv.addElement(tennv);
+                  testtennv.add(tennv);
+                }
+            }
+        }
+        jComboNhanVien.setModel(namenv);
+    }
+    
     public void date(ArrayList<Bill> bill)
     {
          boxdate = new DefaultComboBoxModel();
@@ -184,7 +317,7 @@ public class AdminView extends javax.swing.JFrame {
          for(Bill b: bill)
         {
             //lay ngay trong database
-            String date_data = b.getNgaylap();
+            String date_data = b.getNgaylap().toString();
             if(!date1.equals(date_data))    
             boxdate1.addElement(date_data);
             date1 = date_data;
@@ -237,9 +370,6 @@ public class AdminView extends javax.swing.JFrame {
             String date1_get = getDate(jComboDate1);
             String year1_get = getYear(jComboDate1);
             String mounth1_get = getMounth(jComboDate1);
-            System.out.println(year1_get);
-            System.out.println(date1_get);
-            System.out.println(mounth1_get);
             int a2 = Integer.parseInt(date1_get);
             int b2 = Integer.parseInt(mounth1_get);
             int c2 = Integer.parseInt(year1_get);
@@ -389,7 +519,7 @@ public class AdminView extends javax.swing.JFrame {
         //lay ngay de so sanh
         String dateget = jcomboDate.getSelectedItem().toString();
         String date = dateget.substring(dateget.lastIndexOf("-") + 1); 
-        String id_mon = "";
+        ArrayList<String> id_mon = new ArrayList<String>();
         int count = 0;
         for(Bill b: bill)
         {
@@ -403,17 +533,18 @@ public class AdminView extends javax.swing.JFrame {
             String date1_get = getDate(jcomboDate);
             String mounth1_get = getMounth(jcomboDate);    //
             if(date1_get.equals(date_data) && mounth1_get.equals(mounth_data) && year1_get.equals(year_data))
-            {
+            { 
                for(Bill_Detail bdetail: bill_Detail)
                {
                    //lay id cua hoadon va chitiethoa don so sanh
                    if(b.getId_hoadon().equals(bdetail.getId_hoadon()))
                    {
+                       
                        //lay id mon an
                        String slmon = bdetail.getId_sp();
-                       if(!id_mon.equals(slmon))
+                       if(!id_mon.contains(slmon))
                        count++;
-                       id_mon = slmon;
+                       id_mon.add(slmon);
                    }
                }
             }
@@ -422,7 +553,7 @@ public class AdminView extends javax.swing.JFrame {
         
         String mounth = jComboMounth.getSelectedItem().toString();   
         int count_mounth = 0;
-        String id_mon_thang = "";
+        ArrayList<String> id_mon_thang = new ArrayList<String>();
         for(Bill b: bill)
         {
             //lay ngay trong database
@@ -438,9 +569,9 @@ public class AdminView extends javax.swing.JFrame {
                    {
                        //lay id mon an
                        String slmon = bdetail.getId_sp();
-                       if(!id_mon_thang.equals(slmon))
+                       if(!id_mon_thang.contains(slmon))
                        count_mounth++;
-                       id_mon_thang = slmon;
+                       id_mon_thang.add(slmon);
                    }
                }
             }
@@ -449,7 +580,7 @@ public class AdminView extends javax.swing.JFrame {
         
         String year = jComboYear.getSelectedItem().toString();   
         int count_year = 0;
-        String id_mon_nam = "";
+        ArrayList<String> id_mon_nam = new ArrayList<String>();
         for(Bill b: bill)
         {
             //lay ngay trong database
@@ -465,9 +596,9 @@ public class AdminView extends javax.swing.JFrame {
                    {
                        //lay id mon an
                        String slmon = bdetail.getId_sp();
-                       if(!id_mon_nam.equals(slmon))
+                       if(!id_mon_nam.contains(slmon))
                        count_year++;
-                       id_mon_nam = slmon;
+                       id_mon_nam.add(slmon);
                    }
                }
             }
@@ -492,6 +623,27 @@ public class AdminView extends javax.swing.JFrame {
         
     }
     */
+    public void Chepdulieuthongke(){
+        if(nhanvienBUS.getList()== null)nhanvienBUS.listNhanvien();
+        ArrayList<Nhanvien> nv = nhanvienBUS.getList();
+        if(billBus.getList()== null)billBus.listBill();
+        ArrayList<Bill> bill = billBus.getList();
+        tablethongke(model1, bill, nv);
+    }
+    public void chepdulieutennhanvien(){
+        if(nhanvienBUS.getList()== null)nhanvienBUS.listNhanvien();
+        ArrayList<Nhanvien> nv = nhanvienBUS.getList();
+        if(billBus.getList()== null)billBus.listBill();
+        ArrayList<Bill> bill = billBus.getList();
+        nhanvien(bill, nv);
+    }
+    public void CheckTennv(){
+        if(nhanvienBUS.getList()== null)nhanvienBUS.listNhanvien();
+        ArrayList<Nhanvien> nv = nhanvienBUS.getList();
+        if(billBus.getList()== null)billBus.listBill();
+        ArrayList<Bill> bill = billBus.getList();
+        thongketheoten(model1, bill, nv);
+    }
     public void Chepdulieu() // Chép ArrayList lên table
     {
        
@@ -630,12 +782,12 @@ public class AdminView extends javax.swing.JFrame {
         jTextField21 = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableThongke = new javax.swing.JTable();
         jTextField12 = new javax.swing.JTextField();
         jTextField13 = new javax.swing.JTextField();
         jTextField14 = new javax.swing.JTextField();
         jTextField15 = new javax.swing.JTextField();
-        jLabel39 = new javax.swing.JLabel();
+        jSoluongHoadon = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
@@ -662,7 +814,7 @@ public class AdminView extends javax.swing.JFrame {
         jComboMounth = new javax.swing.JComboBox<>();
         jComboYear = new javax.swing.JComboBox<>();
         jLabel69 = new javax.swing.JLabel();
-        jComboCrew = new javax.swing.JComboBox<>();
+        jComboNhanVien = new javax.swing.JComboBox<>();
         JTongTienNgay = new javax.swing.JLabel();
         JTongTienThang = new javax.swing.JLabel();
         jTongMonThang = new javax.swing.JLabel();
@@ -679,7 +831,7 @@ public class AdminView extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         JTongTienQui = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
+        jTongtientable = new javax.swing.JLabel();
         jButton15 = new javax.swing.JButton();
         pnlDishCard = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -1583,16 +1735,16 @@ public class AdminView extends javax.swing.JFrame {
 
         jPanel10.setBackground(new java.awt.Color(51, 204, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableThongke.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Mã hóa đơn", "Ngày lập phiếu", "Tên khách", "Khuyến mãi", "Tổng tiền"
+                "Mã hóa đơn", "Khách hàng", "Nhân viên", "Khuyến mãi", "Ngày lập", "Tổng tiền"
             }
         ));
-        jTable2.setRowHeight(30);
-        jScrollPane3.setViewportView(jTable2);
+        jTableThongke.setRowHeight(30);
+        jScrollPane3.setViewportView(jTableThongke);
 
         jTextField13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1600,11 +1752,11 @@ public class AdminView extends javax.swing.JFrame {
             }
         });
 
-        jLabel39.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel39.setText("...");
+        jSoluongHoadon.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jSoluongHoadon.setText("...");
 
         jLabel41.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel41.setText("Tổng cộng");
+        jLabel41.setText("Tổng cộng số lượng hóa đơn:");
 
         jPanel18.setBackground(new java.awt.Color(51, 204, 255));
         jPanel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 3));
@@ -1728,7 +1880,12 @@ public class AdminView extends javax.swing.JFrame {
         jLabel69.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel69.setText("Chọn Nhân Viên");
 
-        jComboCrew.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboNhanVien.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboNhanVienItemStateChanged(evt);
+            }
+        });
 
         JTongTienNgay.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         JTongTienNgay.setText("....");
@@ -1881,7 +2038,7 @@ public class AdminView extends javax.swing.JFrame {
                             .addGroup(jPanel18Layout.createSequentialGroup()
                                 .addComponent(jLabel69)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboCrew, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jComboNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel18Layout.createSequentialGroup()
                                 .addComponent(jLabel21)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1949,7 +2106,7 @@ public class AdminView extends javax.swing.JFrame {
                             .addComponent(jLabel31)
                             .addComponent(jComboDate1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel69)
-                            .addComponent(jComboCrew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel52)
@@ -1974,10 +2131,10 @@ public class AdminView extends javax.swing.JFrame {
         );
 
         jLabel53.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel53.setText("Tổng cộng tiền");
+        jLabel53.setText("Tổng cộng tiền:");
 
-        jLabel54.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel54.setText("...");
+        jTongtientable.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTongtientable.setText("...");
 
         jButton15.setText("chi tiết");
         jButton15.addActionListener(new java.awt.event.ActionListener() {
@@ -1992,7 +2149,7 @@ public class AdminView extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2000,27 +2157,25 @@ public class AdminView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField15)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(jLabel41)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel39)
-                                .addGap(107, 107, 107)
-                                .addComponent(jLabel53)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel54)))
-                        .addGap(78, 78, 78))))
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 959, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jTextField15))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel10Layout.createSequentialGroup()
+                            .addComponent(jLabel41)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jSoluongHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(120, 120, 120)
+                            .addComponent(jLabel53)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jTongtientable))))
+                .addGap(78, 78, 78))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton15)
                 .addGap(157, 157, 157))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2040,9 +2195,9 @@ public class AdminView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel41)
-                    .addComponent(jLabel39)
+                    .addComponent(jSoluongHoadon)
                     .addComponent(jLabel53)
-                    .addComponent(jLabel54))
+                    .addComponent(jTongtientable))
                 .addContainerGap(200, Short.MAX_VALUE))
         );
 
@@ -3389,11 +3544,13 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
         chepdulieudate2();
         ChepdulieuSales();
+        Chepdulieuthongke();
     }//GEN-LAST:event_jComboDate1ItemStateChanged
 
     private void jComboDate2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboDate2ItemStateChanged
         // TODO add your handling code here:
         ChepdulieuSales();
+        Chepdulieuthongke();
     }//GEN-LAST:event_jComboDate2ItemStateChanged
 
     private void jComboQuiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboQuiItemStateChanged
@@ -3409,6 +3566,11 @@ public class AdminView extends javax.swing.JFrame {
     private void txtTenNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenNVActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenNVActionPerformed
+
+    private void jComboNhanVienItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboNhanVienItemStateChanged
+        // TODO add your handling code here:
+        CheckTennv();
+    }//GEN-LAST:event_jComboNhanVienItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -3509,10 +3671,10 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
-    private javax.swing.JComboBox<String> jComboCrew;
     private javax.swing.JComboBox<String> jComboDate1;
     private javax.swing.JComboBox<String> jComboDate2;
     private javax.swing.JComboBox<String> jComboMounth;
+    private javax.swing.JComboBox<String> jComboNhanVien;
     private javax.swing.JComboBox<String> jComboQui;
     private javax.swing.JComboBox<String> jComboYear;
     private javax.swing.JLabel jLabel1;
@@ -3544,13 +3706,11 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
@@ -3596,19 +3756,20 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JLabel jSoluongHoadon;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable10;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
     private javax.swing.JTable jTable9;
+    private javax.swing.JTable jTableThongke;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
@@ -3659,6 +3820,7 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel jTongMonNam;
     private javax.swing.JLabel jTongMonThang;
+    private javax.swing.JLabel jTongtientable;
     private javax.swing.JComboBox<String> jcomboDate;
     private javax.swing.JPanel pnlCards;
     private javax.swing.JPanel pnlCrewCard;

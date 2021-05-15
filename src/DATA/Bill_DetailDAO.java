@@ -35,7 +35,7 @@ public class Bill_DetailDAO {
                 int soluongsp = rs.getInt("soluongsp");                                            
                 int thanhtien= rs.getInt("thanhtien");
                                             
-                Bill_Detail bd = new Bill_Detail( id_hoadon, id_sp, soluongsp, thanhtien);
+                Bill_Detail bd = new Bill_Detail(id_hoadon, id_sp, soluongsp, thanhtien);
                 dshd.add(bd);
             }
             rs.close();
@@ -51,12 +51,14 @@ public class Bill_DetailDAO {
     public void add(Bill_Detail bd) {
         MySQLConnect mySQL = new MySQLConnect();
          String sql = "INSERT INTO chitiethoadon VALUES (";
+                sql += "'"+bd.getId_hoadon()+"',";
                 sql += "'"+bd.getId_sp()+"',";
                 sql += "'"+bd.getSoluongsp()+"',";
                 sql += "'"+bd.getThanhtien()+")";
          System.out.println(sql);
          mySQL.executeUpdate(sql);
     }
+   
     
 /*    public void delete(String MaB)
     {

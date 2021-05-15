@@ -10,7 +10,7 @@ public class Bill_Detail{
     String id_hoadon,id_sp;
     int soluongsp,thanhtien;
 
-    public Bill_Detail(String id_bill, String id_sp, int soluongsp, int thanhtien) {
+    public Bill_Detail(String id_hoadon, String id_sp, int soluongsp, int thanhtien) {
         this.id_hoadon = id_hoadon;
         this.id_sp = id_sp;
         this.soluongsp = soluongsp;
