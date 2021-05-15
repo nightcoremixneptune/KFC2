@@ -26,18 +26,16 @@ public class Bill_DetailDAO {
         ArrayList<Bill_Detail> dshd = new ArrayList<>();
         try {
            
-            String sql = "SELECT * FROM bill_details";
+            String sql = "SELECT * FROM chitiethoadon";
             ResultSet rs = mySQL.executeQuery(sql);
             while(rs.next())
             {
-                String id_bill= rs.getString("id_bill");
-                int quantity_combo= rs.getInt("quantity_combo");
-                String date = rs.getString("date");               
-                String id_member = rs.getString("id_member"); 
-                int price_combo = rs.getInt("price_combo");                              
-                int sale= rs.getInt("sale");
+                String id_hoadon= rs.getString("id_hoadon");
+                String id_sp = rs.getString("id_sp");
+                int soluongsp = rs.getInt("soluongsp");                                            
+                int thanhtien= rs.getInt("thanhtien");
                                             
-                Bill_Detail bd = new Bill_Detail( id_bill,  quantity_combo,  date,  id_member,  price_combo,  sale);
+                Bill_Detail bd = new Bill_Detail( id_hoadon, id_sp, soluongsp, thanhtien);
                 dshd.add(bd);
             }
             rs.close();
@@ -50,29 +48,12 @@ public class Bill_DetailDAO {
         return dshd;
     }
 
-    public void set(Bill_Detail bd) {
-            MySQLConnect mySQL = new MySQLConnect();
-            String sql = "UPDATE bill_details SET ";
-            sql += "quantity_combo='"+bd.getQuantity_combo()+"', ";
-            sql += "date='"+bd.getDate()+"', ";
-            sql += "id_member='"+bd.getId_member()+"', ";
-            sql += "price_combo='"+bd.getPrice_combo()+"', ";
-            sql += "sale='"+bd.getSale()+"', ";
-            sql += " WHERE id_bill='"+bd.getId_bill()+"'";
-            System.out.println(sql);
-            
-            mySQL.executeUpdate(sql);
-    }
-
     public void add(Bill_Detail bd) {
         MySQLConnect mySQL = new MySQLConnect();
-         String sql = "INSERT INTO bill_details VALUES (";
-                sql += "'"+bd.getId_bill()+"',";
-                sql += "'"+bd.getQuantity_combo()+"',";
-                sql += "'"+bd.getDate()+"',";
-                sql += "'"+bd.getId_member()+"',";
-                sql += "'"+bd.getPrice_combo()+"',";
-                sql += "'"+bd.getSale()+")";
+         String sql = "INSERT INTO chitiethoadon VALUES (";
+                sql += "'"+bd.getId_sp()+"',";
+                sql += "'"+bd.getSoluongsp()+"',";
+                sql += "'"+bd.getThanhtien()+")";
          System.out.println(sql);
          mySQL.executeUpdate(sql);
     }

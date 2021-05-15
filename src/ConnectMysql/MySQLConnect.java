@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class MySQLConnect {
     private String user = "root";
     private String password="";
-    private String url="jdbc:mysql://localhost/bbq?useUnicode=true&characterEncoding=UTF-8";
+    private String url="jdbc:mysql://localhost/restaurant?useUnicode=true&characterEncoding=UTF-8";
     private Connection conn = null;
     private Statement st = null;
     
