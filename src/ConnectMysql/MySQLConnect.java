@@ -5,7 +5,7 @@
  */
 package ConnectMysql;
 
-import DATA.CrewDAO;
+import DATA.NhanvienDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -31,7 +31,7 @@ public class MySQLConnect {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(CrewDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NhanvienDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public void disConnect()
