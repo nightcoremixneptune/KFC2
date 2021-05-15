@@ -101,8 +101,8 @@ public class AdminView extends javax.swing.JFrame {
     }
     
     public String getDate(JComboBox model){
-        String date_get = model.getSelectedItem().toString();
-        String date1_get = date_get.substring(date_get.lastIndexOf("-") + 1);
+        String date_get1 = model.getSelectedItem().toString();
+        String date1_get = date_get1.substring(date_get1.lastIndexOf("-") + 1);
         return date1_get;
     }
     public String getDate_data(String data){
@@ -506,6 +506,7 @@ public class AdminView extends javax.swing.JFrame {
         ArrayList<Bill_Detail> bildetail = bill_detailBus.getList();
         tongtien(bill);
         MonSale(bill, bildetail);
+        
     }
     public void chepdulieudate2(){
         if(billBus.getList()== null)billBus.listBill();
