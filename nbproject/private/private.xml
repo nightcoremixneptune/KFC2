@@ -3,8 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/ConnectMysql/MySQLConnect2.java</file>
+            <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/DATA/Bill_ResDAO.java</file>
+            <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/BUS/BillBUS.java</file>
+            <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/DTO/Bill_Detail.java</file>
+            <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/DTO/Bill_ResDetail.java</file>
             <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/GUI/AdminView.java</file>
+            <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/DTO/Bill_Res.java</file>
             <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/GUI/MenuTableView.java</file>
+            <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/DATA/BillDAO.java</file>
+            <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/DATA/Bill_DetailDAO.java</file>
+            <file>file:/C:/Users/LENOVO/AppData/Local/GitHubDesktop/app-2.8.1/KFC2/src/DTO/Bill.java</file>
         </group>
     </open-files>
 </project-private>
