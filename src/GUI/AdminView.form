@@ -1633,13 +1633,11 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButton15" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jButtonChiTietHoadon" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -1649,9 +1647,9 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jPanel18" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                  <Component id="jButtonChiTietHoadon" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButton15" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jTextField13" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       <Component id="jTextField12" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -2469,12 +2467,12 @@
                             <Property name="text" type="java.lang.String" value="..."/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JButton" name="jButton15">
+                        <Component class="javax.swing.JButton" name="jButtonChiTietHoadon">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="chi ti&#x1ebf;t"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton15ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonChiTietHoadonActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>

@@ -832,7 +832,7 @@ public class AdminView extends javax.swing.JFrame {
         JTongTienQui = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
         jTongtientable = new javax.swing.JLabel();
-        jButton15 = new javax.swing.JButton();
+        jButtonChiTietHoadon = new javax.swing.JButton();
         pnlDishCard = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
@@ -2136,10 +2136,10 @@ public class AdminView extends javax.swing.JFrame {
         jTongtientable.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTongtientable.setText("...");
 
-        jButton15.setText("chi tiết");
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        jButtonChiTietHoadon.setText("chi tiết");
+        jButtonChiTietHoadon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+                jButtonChiTietHoadonActionPerformed(evt);
             }
         });
 
@@ -2169,12 +2169,10 @@ public class AdminView extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jTongtientable))))
                 .addGap(78, 78, 78))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton15)
-                .addGap(157, 157, 157))
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonChiTietHoadon)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -2182,9 +2180,9 @@ public class AdminView extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jButtonChiTietHoadon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3492,9 +3490,27 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNewCrew7ActionPerformed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+    private void jButtonChiTietHoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChiTietHoadonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton15ActionPerformed
+        model = (DefaultTableModel) jTableThongke.getModel();
+        int Row = jTableThongke.getSelectedRow();
+        if(Row == -1)
+        {
+           JOptionPane.showMessageDialog(null, "Bạn chưa chọn dòng");
+           return;
+        }
+        else
+        {
+            
+           String id = jTableThongke.getModel().getValueAt(Row, 0).toString();
+           BillView billview = new BillView(id);
+           billview.setVisible(true);
+              
+            
+            
+        }        
+        
+    }//GEN-LAST:event_jButtonChiTietHoadonActionPerformed
 
     private void txtSearchId_crewKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchId_crewKeyReleased
         
@@ -3666,11 +3682,11 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JButton btnSupplier;
     private javax.swing.JButton btnWarehouse;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
+    private javax.swing.JButton jButtonChiTietHoadon;
     private javax.swing.JComboBox<String> jComboDate1;
     private javax.swing.JComboBox<String> jComboDate2;
     private javax.swing.JComboBox<String> jComboMounth;

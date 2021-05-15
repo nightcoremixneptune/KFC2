@@ -5,17 +5,52 @@
  */
 package GUI;
 
+import BUS.Bill_DetailBUS;
+import DTO.Bill_Detail;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Admin
  */
 public class BillView extends javax.swing.JFrame {
-
+    public Bill_DetailBUS bill_detailBus = new Bill_DetailBUS();   
+    public DefaultTableModel model;
     /**
      * Creates new form BillView
      */
-    public BillView() {
+    public BillView(String a) {
         initComponents();
+        chepdulieu(a);
+    }
+    
+    public void chepdulieu(String a){
+        if(bill_detailBus.getList()== null)bill_detailBus.listBill_Detail();
+        ArrayList<Bill_Detail> bildetail = bill_detailBus.getList();
+        chitiethoadon(model, bildetail, a);
+    }
+    
+    public void chitiethoadon(DefaultTableModel model , ArrayList<Bill_Detail> bdeital, String a){
+        model = (DefaultTableModel) jtableChiTietBill.getModel();
+        Vector data;
+        model.setRowCount(0);
+        for(Bill_Detail bd: bdeital )
+        {
+            if(bd.getId_hoadon().equals(a))
+            {
+            data = new Vector();
+            data.add(bd.getId_hoadon());
+            data.add(bd.getId_sp());
+            data.add(bd.getSoluongsp());
+            data.add(bd.getThanhtien());
+
+            model.addRow(data);
+            }
+        }
+        jtableChiTietBill.setModel(model);
+        model.fireTableDataChanged();
     }
 
     /**
@@ -28,7 +63,7 @@ public class BillView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtableChiTietBill = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -47,22 +82,19 @@ public class BillView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtableChiTietBill.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Bàn Số", "Loại vé", "Số Lượng", "Nhân Viên Lập Phiếu", "Tổng Tiền"
+                "id_hoadon", "id_sp", "Số Lượng", "Thành tiền"
             }
         ));
-        jTable1.setRowHeight(30);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-        }
+        jtableChiTietBill.setRowHeight(30);
+        jScrollPane1.setViewportView(jtableChiTietBill);
 
         jLabel1.setText("Tổng Tiền:");
 
@@ -183,43 +215,13 @@ public class BillView extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+       
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new BillView().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -237,7 +239,9 @@ public class BillView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jtableChiTietBill;
     // End of variables declaration//GEN-END:variables
+
+   
 }
